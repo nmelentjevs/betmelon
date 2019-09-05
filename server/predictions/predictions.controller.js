@@ -19,7 +19,7 @@ exports.addPrediction = (req, res) => {
 exports.getPredictions = async (req, res, next) => {
   const { action } = req.params;
   redisClient.get('predictions', async (err, values) => {
-    if (values && !action) {
+    if (values && action === 'false') {
       console.log('Got from cache');
       res.send(JSON.parse(values));
     } else {
@@ -58,8 +58,6 @@ exports.getPredictions = async (req, res, next) => {
         'National'
       ];
       let filter;
-
-      req.params.filter = req.params.filter.replace(':', '');
 
       isCountry = countries.includes(req.params.filter);
       isLeague = leagues.includes(req.params.filter);

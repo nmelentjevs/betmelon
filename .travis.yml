@@ -20,3 +20,16 @@ after_success:
   - docker push kingusha/betmelon-server
   - docker push kingusha/betmelon-nginx
   - docker push kingusha/betmelon-postgres
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-3
+  app: betmelon-docker
+  env: BetmelonDocker-env
+  bucket_name: elasticbeanstalk-eu-west-3-905954862075
+  bucket_path: docker-betmelon
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
