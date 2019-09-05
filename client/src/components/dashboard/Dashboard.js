@@ -29,7 +29,7 @@ const Dashboard = ({ match }) => {
           .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
-  }, []);
+  }, [match.params.id]);
   return (
     <>
       {!loadingBets && bets && bets.length > 0 ? (

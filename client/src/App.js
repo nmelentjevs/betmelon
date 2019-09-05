@@ -99,8 +99,7 @@ const PrivateRouteLogged = ({ component: Component, state, ...rest }) => (
     render={props => {
       const { isAuthenticated } = state.state;
       const user = localStorage.getItem('username');
-      return !isAuthenticated ? (
-        // && !user
+      return !isAuthenticated && !user ? (
         <Component {...props} />
       ) : (
         <Redirect to="/" />

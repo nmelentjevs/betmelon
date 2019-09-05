@@ -17,17 +17,21 @@ const Statistics = ({ bets, profile }) => {
     bets.map(bet => {
       console.log(bet[8]);
       if (bet[8] === ('Win' || '1')) {
-        setStatistics({
+        return setStatistics({
           ...statistics,
           wins: (statistics.wins += 1)
         });
       } else if (bet[8] === ('Return' || '0')) {
-        setStatistics({ ...statistics, return: (statistics.return += 1) });
+        return setStatistics({
+          ...statistics,
+          return: (statistics.return += 1)
+        });
       } else if (bet[8] === ('Lose' || '-1')) {
-        setStatistics({ ...statistics, loses: (statistics.loses += 1) });
+        return setStatistics({ ...statistics, loses: (statistics.loses += 1) });
       }
+      return 'Done';
     });
-  }, []);
+  }, [bets]);
 
   return (
     <Card style={{ width: '18rem' }} className="mb-2">

@@ -49,6 +49,7 @@ const Prediction = ({ data, like, state }) => {
       if (teamCountry === country) {
         color = colors[i];
       }
+      return;
     });
     return color;
   };
