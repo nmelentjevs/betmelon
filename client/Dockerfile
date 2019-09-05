@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . /srv/app/client/
 
-CMD ["npm", "build" ]
+CMD ["npm", "run", "build" ]
 
 FROM nginx 
 EXPOSE 3000
