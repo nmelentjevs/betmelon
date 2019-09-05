@@ -1,11 +1,16 @@
-FROM node:alpine
+FROM nikolaik/python-nodejs:latest
 
-WORKDIR "/app"
+RUN mkdir -p /srv/app/server
 
-COPY ./package*.json ./
+WORKDIR /srv/app/server/
 
-RUN npm install 
+COPY package.json /srv/app/server/
+COPY package-lock.json /srv/app/server/
 
-COPY . .
+RUN npm install
 
-CMD ["npm", "run", "dev"]
+COPY . /srv/app/server/
+
+# CMD ["npm", "run", "dev"] 
+
+CMD ./scripts/start.sh

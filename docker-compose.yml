@@ -4,7 +4,7 @@ services:
   postgres:
     restart: always
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./psqldb/
     ports:
       - '5432:5432'
@@ -20,7 +20,7 @@ services:
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./nginx/
     ports:
       - '3050:80'
@@ -30,7 +30,7 @@ services:
   api:
     restart: always
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./server/
     depends_on:
       - postgres
@@ -58,7 +58,7 @@ services:
     command: npm run dev
   client:
     build:
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       context: ./client/
     environment:
       - REACT_APP_PORT=3000

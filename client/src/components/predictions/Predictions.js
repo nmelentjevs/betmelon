@@ -54,7 +54,6 @@ const Predictions = props => {
   }, [filter, filteredPredictions]);
 
   const getData = async (filterParam = '*') => {
-    console.log(added);
     if (props.match.params.filter && filterParam === '*') {
       filterParam = props.match.params.filter.replace(':', '');
     } else if (filter.length > 0) {
@@ -67,7 +66,6 @@ const Predictions = props => {
     await axios
       .get(`/api/predictions/all/:${filterParam}/:${added}`)
       .then(res => {
-        console.log(res.data);
         pagination.pageCount = Math.ceil(res.data.length / pagination.perPage);
         setElementsForCurrentPage(res.data);
         setLoading(false);
@@ -77,12 +75,10 @@ const Predictions = props => {
   };
 
   const addPrediction = async user => {
-    console.log(prediction);
     await axios
       .post('/api/predictions/add', { prediction, user })
       .then(res => {
         added = true;
-        console.log(res.data);
       })
       .catch(err => console.log(err));
   };
@@ -126,8 +122,6 @@ const Predictions = props => {
 
   const handleSubmit = (e, state) => {
     e.preventDefault();
-    // prediction.country = document.getElementById('country').value;
-    // prediction.league = document.getElementById('league').value;
     let country = document.getElementById('country').value;
     let league = document.getElementById('league').value;
     let odds = document.getElementById('odds').value;

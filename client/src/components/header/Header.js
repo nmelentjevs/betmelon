@@ -35,7 +35,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
     // <header>
     <Navbar expand="lg">
       <Link className="navbar-brand" to="/" style={{ color: 'black' }}>
-        Betsheets
+        Betmelon
       </Link>
 
       <Nav className="mr-auto">
