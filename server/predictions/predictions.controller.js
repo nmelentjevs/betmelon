@@ -17,9 +17,11 @@ exports.addPrediction = (req, res) => {
 };
 
 exports.getPredictions = async (req, res, next) => {
-  const { action } = req.params;
+  const { action, filter } = req.params;
+  console.log(filter);
+
   redisClient.get('predictions', async (err, values) => {
-    if (values && action === 'false') {
+    if (values && action !== 'false' && filter !== 'all') {
       console.log('Got from cache');
       res.send(JSON.parse(values));
     } else {
