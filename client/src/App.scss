@@ -1,0 +1,59 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+
+
+.welcome-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100vw;
+  height: 30vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    content: "";
+    background: #a8ff78;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #78ffd6, #a8ff78);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #78ffd6, #a8ff78);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+.tag-cloud {
+  max-width: 600px;
+  max-height: 400px;
+  overflow-wrap: break-word;
+  margin: 0 auto;
+  text-align: center;
+  padding: 6rem 12rem;
+  font-size: 1.1rem;
+}
+
+.tag-cloud>span:hover {
+  cursor: pointer;
+  transform: scale(1.1) translateY(-5px);
+  opacity: 1;
+  animation: none;
+  color: salmon;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: .75;
+    transform: scale(1.05)
+  }
+}

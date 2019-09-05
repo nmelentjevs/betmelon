@@ -1,0 +1,36 @@
+header {
+  display: flex;
+  background: white;
+  height: 40px;
+  font-family: 'Roboto', sans-serif;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navigation--list {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.header-wrapper {
+  flex: 0 0 30% !important;
+  color: salmon;
+  margin-left: auto;
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+
+  div {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+}

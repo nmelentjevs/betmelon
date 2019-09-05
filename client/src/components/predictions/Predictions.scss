@@ -1,0 +1,41 @@
+.pagination {
+  font-size: 1.25rem;
+
+
+
+  .active {
+    border-bottom: red 1px solid;
+  }
+
+  li {
+    margin: 0 .2rem;
+    cursor: pointer;
+
+    a {
+      color: black !important;
+    }
+  }
+}
+
+.custom-dropdown {
+  width: 100% !important;
+
+  a {
+    font-size: 14px;
+  }
+
+  button {
+    width: 100%;
+    border: none !important;
+    border-radius: 0px !important;
+  }
+
+  input {
+    width: 100% !important;
+    height: 100% !important;
+    padding: .3rem .5rem;
+    border: none !important;
+    border-radius: 0px !important;
+    font-size: 14px;
+  }
+}

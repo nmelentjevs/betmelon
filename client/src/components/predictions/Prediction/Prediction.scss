@@ -1,0 +1,14 @@
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 50px;
+}
+
+button {
+  font-size: 12px !important;
+}
+
+.badge {
+  padding: 0.8em .9em !important;
+}

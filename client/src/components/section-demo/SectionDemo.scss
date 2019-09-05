@@ -1,0 +1,42 @@
+.get-started {
+  display: flex;
+  justify-items: space-evenly;
+  align-items: flex-start;
+  flex-direction: column;
+
+  .span-control {
+    color: red;
+  }
+
+  .span-money {
+    color: green;
+  }
+
+  .span-luck {
+    // text-decoration: underline;
+    color: red;
+  }
+
+  .span-statistic {
+    font-size: 2.75rem;
+    text-transform: uppercase;
+    color: rgb(34, 139, 34);
+  }
+
+  &--heading-1 {
+    font-size: 2.5rem;
+    font-family: 'Montserrat', sans-serif;
+    padding: 1rem 0;
+  }
+
+  &--button {
+    background-color: rgb(34, 139, 34);
+    color: white;
+    border: none;
+    margin: 1rem 0 0 0;
+    padding: 1.25rem 2.75rem;
+    font-size: 1.15rem;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+  }
+}

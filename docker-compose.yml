@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+  postgres:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./psqldb/
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  redis:
+    image: 'redis:latest'
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx/
+    ports:
+      - '3050:80'
+    depends_on:
+      - api
+      - client
+  api:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./server/
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    volumes:
+      - ./server:/srv/app/server
+      - /app/node_modules
+    expose:
+      - '3001'
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=betsheets
+      - PGPASSWORD=password
+      - PGPORT=5432
+      - API_HOST=http://localhost:3001/
+      - APP_SERVER_PORT=3001
+      - DATABASE_URL=postgres://postgres:password@betsheets:5432/betsheets
+    ports:
+      - '3001:3001'
+      - '9229:9229'
+    command: npm run dev
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./client/
+    environment:
+      - REACT_APP_PORT=3000
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client/src:/srv/app/client/src
+      - ./client/public:/srv/app/client/public
+      - /app_modules
+    links:
+      - api
+    command: npm run start
+volumes:
+  postgres-data:
+    driver: local
