@@ -24,8 +24,8 @@ after_success:
 deploy:
   provider: elasticbeanstalk
   region: eu-west-3
-  app: betmelon-3-docker
-  env: Betmelon3Docker-env
+  app: betmelon-4-docker
+  env: Betmelon4Docker-env
   bucket_name: elasticbeanstalk-eu-west-3-905954862075
   bucket_path: docker-betmelon
   on:
