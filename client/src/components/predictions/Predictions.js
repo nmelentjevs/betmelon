@@ -128,7 +128,8 @@ const Predictions = props => {
     let amount = document.getElementById('amount').value;
     let text = document.getElementById('text').value;
     let title = document.getElementById('title').value;
-    prediction = { country, league, odds, amount, text, title };
+
+    prediction = { country, league, odds, amount, prediction: text, title };
 
     addPrediction(state.user.username).then(setTimeout(() => getData(), 2500));
   };
@@ -189,7 +190,7 @@ const Predictions = props => {
         loading ? (
           <GlobalLoading fullscreen={true} />
         ) : predictions.length === 0 ? (
-          <>
+          <div className="mt-4">
             <FilterButton
               setFilter={setFilter}
               countries={countries}
@@ -210,9 +211,9 @@ const Predictions = props => {
                 state={state}
               />
             </div>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="mt-4">
             <div
               style={{
                 display: 'flex',
@@ -288,7 +289,7 @@ const Predictions = props => {
                 {paginationElement}
               </div>
             }
-          </>
+          </div>
         )
       }
     </UserContext.Consumer>

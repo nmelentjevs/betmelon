@@ -33,15 +33,20 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
 
   return (
     // <header>
-    <Navbar expand="lg">
-      <Link className="navbar-brand" to="/" style={{ color: 'black' }}>
+    <Navbar expand="lg" className="container-fullwidth bg-light">
+      <Link className="navbar-brand ml-3" to="/">
         Betmelon
       </Link>
 
-      <Nav className="mr-auto">
+      <Nav className="mx-auto justify-content-center ">
         <Link className="nav-link" to={`/bets/${state.user.sheet_id}`}>
-          Bets
+          My Bets
         </Link>
+        <div className="nav-link">|</div>
+        <Link className="nav-link" to={`/statistics/${state.user.sheet_id}`}>
+          Statistics
+        </Link>
+        <div className="nav-link">|</div>
         <Link
           className="nav-link"
           to="/predictions/all"
@@ -53,10 +58,18 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
         >
           Predictions
         </Link>
+        <div className="nav-link">|</div>
+        <Link className="nav-link" to="/halloffame">
+          Hall Of Fame
+        </Link>
+        <div className="nav-link">|</div>
+        <Link className="nav-link" to={`/users/profile/${state.user.username}`}>
+          Profile
+        </Link>
       </Nav>
       <Navbar.Toggle />
       {state.isAuthenticated ? (
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="flex-grow-0 mr-3">
           <Navbar.Text>
             Signed in as:{' '}
             <Link to={`/users/profile/${state.user.username}`}>

@@ -22,6 +22,8 @@ import Bets from './components/bets/Bets';
 import Dashboard from './components/dashboard/Dashboard';
 import Predictions from './components/predictions/Predictions';
 import RegisterPage from './components/auth/RegisterPage';
+import HallOfFame from './components/hall-of-fame/HallOfFame';
+import UserStatistics from './components/statistics/UserStatistics';
 
 // const data = [
 //   { value: 'Predictions', count: 25 },
@@ -114,50 +116,61 @@ function App() {
       <UserProvider>
         <UserContext.Consumer>
           {(state, setUserFromLocal, setUserFromRedisCache, logout) => (
-            <Container>
-              <Main user={state}>
-                <div className="main-wrapper">
-                  <Header state={state} />
-                  <Route
-                    exact
-                    path="/"
-                    component={() => <MainContent state={state} />}
-                  />
-                  <PrivateRoute
-                    state={state}
-                    path="/predictions/:filter"
-                    component={Predictions}
-                  />
-                  <PrivateRoute
-                    path="/bets/:sheet_id"
-                    state={state}
-                    component={props => (
-                      <Bets
-                        state={state}
-                        setUserFromLocal={setUserFromLocal}
-                        // setUserFromRedisCache={setUserFromRedisCache}
-                        logout={logout}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <PrivateRoute
-                    state={state}
-                    path="/users/profile/:id"
-                    component={Dashboard}
-                  />
-                  <PrivateRouteLogged
-                    state={state}
-                    path="/login"
-                    component={LoginPage}
-                  />
-                  <PrivateRouteLogged
-                    state={state}
-                    path="/register"
-                    component={RegisterPage}
-                  />
-                  <Route path="/email/confirm/:id" component={Thanks} />
-                  {/* <div className="welcome-wrapper">
+            <>
+              <Header state={state} />
+              <Container>
+                <Main user={state}>
+                  <div className="main-wrapper">
+                    <Route
+                      exact
+                      path="/"
+                      component={() => <MainContent state={state} />}
+                    />
+                    <PrivateRoute
+                      state={state}
+                      path="/predictions/:filter"
+                      component={Predictions}
+                    />
+                    <PrivateRoute
+                      state={state}
+                      path="/statistics/:filter"
+                      component={UserStatistics}
+                    />
+                    <PrivateRoute
+                      state={state}
+                      path="/halloffame"
+                      component={HallOfFame}
+                    />
+                    <PrivateRoute
+                      path="/bets/:sheet_id"
+                      state={state}
+                      component={props => (
+                        <Bets
+                          state={state}
+                          setUserFromLocal={setUserFromLocal}
+                          // setUserFromRedisCache={setUserFromRedisCache}
+                          logout={logout}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <PrivateRoute
+                      state={state}
+                      path="/users/profile/:id"
+                      component={Dashboard}
+                    />
+                    <PrivateRouteLogged
+                      state={state}
+                      path="/login"
+                      component={LoginPage}
+                    />
+                    <PrivateRouteLogged
+                      state={state}
+                      path="/register"
+                      component={RegisterPage}
+                    />
+                    <Route path="/email/confirm/:id" component={Thanks} />
+                    {/* <div className="welcome-wrapper">
     <TagCloud
     tags={data}
     minSize={1}
@@ -166,9 +179,10 @@ function App() {
     renderer={customRenderer}
     />
   </div> */}
-                </div>
-              </Main>
-            </Container>
+                  </div>
+                </Main>
+              </Container>
+            </>
           )}
         </UserContext.Consumer>
       </UserProvider>

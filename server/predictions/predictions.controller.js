@@ -6,7 +6,10 @@ exports.addPrediction = (req, res) => {
   const { country, league, prediction, title } = req.body.prediction;
   const { user } = req.body;
   psql.query(
-    `INSERT INTO predictions(author, text, title, liked, disliked, country, league) VALUES ('${user}', '${prediction}', '${title}', '0', '0', '${country}', '${league}');`,
+    `INSERT INTO predictions(author, text, title, liked, disliked, country, league) VALUES ('${user}', '${prediction.replace(
+      "'",
+      '*'
+    )}', '${title}', '0', '0', '${country}', '${league}');`,
     (error, results) => {
       if (error) {
         throw error;
@@ -18,7 +21,6 @@ exports.addPrediction = (req, res) => {
 
 exports.getPredictions = async (req, res, next) => {
   const { action, filter } = req.params;
-  console.log(filter);
 
   redisClient.get('predictions', async (err, values) => {
     if (values && action !== 'false' && filter !== 'all') {
@@ -110,6 +112,8 @@ exports.getPredictions = async (req, res, next) => {
             )
             .then(likes => {
               predictions.rows.map(prediction => {
+                prediction.text = prediction.text.replace('*', "'");
+                console.log(prediction);
                 prediction.liked = 0;
                 prediction.disliked = 0;
                 prediction.liked_by = [];

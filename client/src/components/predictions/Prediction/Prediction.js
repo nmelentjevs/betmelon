@@ -25,14 +25,23 @@ const Prediction = ({ data, like, state }) => {
   };
 
   const colors = [
-    'dark',
-    'secondary',
-    'info',
-    'success',
-    'danger',
-    'warning',
-    'primary'
+    '#715aff',
+    '#f69dc5',
+    '#f9a951',
+    '#8c1a6a',
+    '#e84855',
+    '#4e937a',
+    '#d8cc34'
   ];
+  // const colors = [
+  //   '#715aff',
+  //   '#4e937a',
+  //   '#002400',
+  //   '#05668d',
+  //   '#e84855',
+  //   '#8c1a6a',
+  //   '#d8cc34'
+  // ];
   const countries = [
     'England',
     'Italy',
@@ -89,10 +98,14 @@ const Prediction = ({ data, like, state }) => {
           </div>
           <Card.Title>{data.title}</Card.Title>
           <div>
-            <Badge pill variant={getColor(data.country)} className="mr-2">
+            <Badge
+              pill
+              style={{ backgroundColor: getColor(data.country) }}
+              className="mr-2"
+            >
               {data.country}
             </Badge>
-            <Badge pill variant={getColor(data.country)}>
+            <Badge pill style={{ backgroundColor: getColor(data.country) }}>
               {data.league}
             </Badge>
           </div>

@@ -2,25 +2,24 @@ import React from 'react';
 import './MainContent.scss';
 import SectionDemo from '../section-demo/SectionDemo';
 
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+
 const MainContent = ({ state }) => {
   return (
-    <section className="main-ctn">
-      <SectionDemo />
-      <div className="heading-box">
-        <ul className="main-ctn--list">
-          <li className="main-ctn--list--item-1">
-            Use graphs and metrics to track your most profitable bets
-          </li>
-          <li className="main-ctn--list--item-2">
-            Have all the statistics in one place
-          </li>
-          <li className="main-ctn--list--item-3">
-            Track your bankroll and net profits
-          </li>
-        </ul>
-      </div>
-      <button onClick={() => console.log(state)}>GET STATE</button>
-    </section>
+    <>
+      <Row className="mb-4">
+        <Jumbotron style={{ width: '100%', background: 'white' }}>
+          <SectionDemo />
+        </Jumbotron>
+      </Row>
+      <Row className="text-center">
+        <Col> Use graphs and metrics to track your most profitable bets</Col>
+        <Col> Have all the statistics in one place</Col>
+        <Col>Track your bankroll and net profits</Col>
+      </Row>
+    </>
   );
 };
 
