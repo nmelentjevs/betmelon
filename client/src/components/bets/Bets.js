@@ -120,7 +120,10 @@ const Bets = ({ state: { state }, match, history }) => {
   };
 
   function simulateNetworkRequest() {
-    return new Promise(resolve => setTimeout(resolve, 2000));
+    return new Promise(resolve => {
+      setTimeout(resolve, 2000);
+      setTimeout(() => setAdded(true), 2250);
+    });
   }
 
   const [isButtonLoading, setButtonLoading] = useState(false);
@@ -132,8 +135,7 @@ const Bets = ({ state: { state }, match, history }) => {
     if (isButtonLoading) {
       simulateNetworkRequest().then(() => {
         setButtonLoading(false);
-        setAdded(true);
-        setTimeout(() => (added = false), 2250);
+        setAdded(false);
       });
     }
   }, [isButtonLoading]);

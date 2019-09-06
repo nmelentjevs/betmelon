@@ -56,7 +56,7 @@ app.post('/bets/create_sheet', async (req, res) => {
 app.get('/bets/loadbets/:id', async (req, res) => {
   let bets = await betsController.getBets(client, req, res);
   filteredBets = bets.filter(bet => {
-    return bet.length > 0 && bet[0] !== '0';
+    return bet.length > 0 && bet[0] !== (0 | '0');
   });
   res.send({ bets: filteredBets });
 });
@@ -71,7 +71,7 @@ app.post('/bets/:updatebet', async (req, res) => {
   const update = await betsController.updateBet(client, req.body);
   const bets = await betsController.getBets(client, req, res);
   filteredBets = bets.filter(bet => {
-    return bet.length > 0 && bet[0] !== '0';
+    return bet.length > 0 && bet[0] !== (0 | '0');
   });
   res.send({ bets: filteredBets });
 });

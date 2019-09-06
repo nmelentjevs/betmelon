@@ -6,14 +6,26 @@
       "image": "kingusha/betmelon-client",
       "hostname": "client",
       "essential": false,
-      "memory": 128
+      "memory": 128,
+      "environment": [
+        {
+          "name": "DOCKER_PROVIDER",
+          "value": "ECS"
+        }
+      ]
     },
     {
       "name": "server",
       "image": "kingusha/betmelon-server",
       "hostname": "api",
       "essential": false,
-      "memory": 128
+      "memory": 128,
+      "environment": [
+        {
+          "name": "DOCKER_PROVIDER",
+          "value": "ECS"
+        }
+      ]
     },
     {
       "name": "nginx",
@@ -24,7 +36,19 @@
       "portMappings": [
         {
           "hostPort": 80,
+          "protocol": "tcp",
           "containerPort": 80
+        },
+        {
+          "hostPort": 443,
+          "protocol": "tcp",
+          "containerPort": 443
+        }
+      ],
+      "environment": [
+        {
+          "name": "DOCKER_PROVIDER",
+          "value": "ECS"
         }
       ],
       "links": ["client", "server"]
