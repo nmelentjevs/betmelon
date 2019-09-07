@@ -18,7 +18,7 @@
       "name": "api",
       "image": "kingusha/betmelon-server",
       "hostname": "api",
-      "essential": false,
+      "essential": true,
       "memory": 128,
       "portMappings": [
         {
