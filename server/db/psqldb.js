@@ -7,6 +7,12 @@ const psql = new Pool({
   database: process.env.PGDATABASE,
   port: process.env.PGPORT
 });
-psql.on('error', () => console.log('Lost Postgresql Connection'));
+psql.connect();
+psql.on('connect', () =>
+  console.log(
+    `Connected to database:${process.env.PGDATABASE} on port ${process.env.PGPORT}`
+  )
+);
+psql.on('error', () => console.log("Couldn't connect to postgres"));
 
 module.exports = psql;
