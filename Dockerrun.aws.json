@@ -18,7 +18,7 @@
       "name": "api",
       "image": "kingusha/betmelon-server",
       "hostname": "api",
-      "essential": true,
+      "essential": false,
       "memory": 128,
       "portMappings": [
         {
@@ -31,6 +31,26 @@
         {
           "name": "DOCKER_PROVIDER",
           "value": "ECS"
+        },
+        {
+          "name": "PGUSER",
+          "value": "postgres"
+        },
+        {
+          "name": "PGHOST",
+          "value": "betmelon-postgres.cqcy1wy01gug.eu-west-3.rds.amazonaws.com"
+        },
+        {
+          "name": "PGPASSWORD",
+          "value": "kingushaa"
+        },
+        {
+          "name": "PGPORT",
+          "value": 5432
+        },
+        {
+          "name": "PGDATABASE",
+          "value": "betsheets"
         }
       ]
     },
