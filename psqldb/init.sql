@@ -30,7 +30,7 @@ teams VARCHAR(50),
 match_date DATE,
 title VARCHAR(50)
 );
-INSERT INTO predictions(text,author,country,league,teams,title,match_date) VALUES ('test', 'test', 'test', 'test', 'test', 'test', '10.10.10');
+INSERT INTO predictions(text,author,country,league,teams,title,match_date) VALUES ('Barcelona wins easily', 'king111', 'Spain', 'La Liga', 'Barcelona vs Real Madrid', 'Barcelona wins easily', '07.09.2019');
 CREATE TABLE likes(
 post_id INT,
 liker_username VARCHAR(50)

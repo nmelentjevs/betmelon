@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . /srv/app/server/
 
-CMD ["npm", "run", "dev", "--host", "0.0.0.0"] 
+CMD ["npm", "run", "start", "--host", "0.0.0.0"] 
 
 # CMD ./scripts/start.sh
