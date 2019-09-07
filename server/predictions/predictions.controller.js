@@ -6,7 +6,7 @@ exports.addPrediction = (req, res) => {
   const { country, league, prediction, title } = req.body.prediction;
   const { user } = req.body;
   psql.query(
-    `INSERT INTO predictions(author, text, title, liked, disliked, country, league) VALUES ('${user}', '${prediction.replace(
+    `INSERT INTO public.predictions(author, text, title, liked, disliked, country, league) VALUES ('${user}', '${prediction.replace(
       "'",
       '*'
     )}', '${title}', '0', '0', '${country}', '${league}');`,
@@ -81,20 +81,20 @@ exports.getPredictions = async (req, res, next) => {
 
       await psql
         .query(
-          `SELECT predictions.id, predictions.author, predictions.text, predictions.title, predictions.edited_on, predictions.league, predictions.country, predictions.wrote_on, users.username
-          FROM users
-          INNER JOIN predictions ON users.username = predictions.author  ${
+          `SELECT public.predictions.id, public.predictions.author, public.predictions.text, public.predictions.title, public.predictions.edited_on, public.predictions.league, public.predictions.country, public.predictions.wrote_on, users.username
+          FROM public.users
+          INNER JOIN public.predictions ON public.users.username = public.predictions.author  ${
             filter
               ? isCountry
-                ? `AND predictions.country = '${filter}'`
+                ? `AND public.predictions.country = '${filter}'`
                 : isLeague
-                ? `AND predictions.league = '${filter}'`
+                ? `AND public.predictions.league = '${filter}'`
                 : isUser
-                ? `AND predictions.author = '${filter}'`
+                ? `AND public.predictions.author = '${filter}'`
                 : ''
               : ''
           }
-          ORDER BY predictions.wrote_on;
+          ORDER BY public.predictions.wrote_on;
         `
         )
         .then(async predictions => {
@@ -103,10 +103,10 @@ exports.getPredictions = async (req, res, next) => {
               `SELECT liker_username, post_id, emotion
               FROM (
                 Select liker_username, post_id, 'Like' as emotion
-                From likes
+                From public.likes
                 Union 
                 Select disliker_username, post_id, 'Dislike' as emotion
-                From dislikes
+                From public.dislikes
               ) As a
               Order by post_id
               `
@@ -149,7 +149,7 @@ exports.likePrediction = (req, res) => {
   const { post_id, like, username } = req.body;
   if (like == 1) {
     psql.query(
-      `INSERT INTO likes(post_id, liker_username) VALUES('${post_id}', '${username}');`,
+      `INSERT INTO public.likes(post_id, liker_username) VALUES('${post_id}', '${username}');`,
       (error, results) => {
         if (error) {
           res.status(500).json({ msg: error });
@@ -159,7 +159,7 @@ exports.likePrediction = (req, res) => {
     );
   } else {
     psql.query(
-      `INSERT INTO dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}');`,
+      `INSERT INTO public.dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}');`,
       (error, results) => {
         if (error) {
           res.status(500).json({ msg: error });
@@ -172,7 +172,7 @@ exports.likePrediction = (req, res) => {
 
 exports.editPrediction = (req, res) =>
   psql.query(
-    `UPDATE predictions text SET text='${
+    `UPDATE public.predictions text SET text='${
       req.body.text
     }', edited_on = '${new Date(
       Date('dd/mm/yyyy:HH:MM')
