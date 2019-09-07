@@ -66,6 +66,7 @@ const Predictions = props => {
     await axios
       .get(`/api/predictions/all/${filterParam}/${added}`)
       .then(res => {
+        console.log(res.data);
         pagination.pageCount = Math.ceil(res.data.length / pagination.perPage);
         setElementsForCurrentPage(res.data);
         setLoading(false);
