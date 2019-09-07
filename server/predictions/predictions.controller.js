@@ -21,6 +21,7 @@ exports.addPrediction = (req, res) => {
 
 exports.getPredictions = async (req, res, next) => {
   const { action, filter } = req.params;
+  console.log(req.params);
 
   redisClient.get('predictions', async (err, values) => {
     if (values && action !== 'false' && filter !== 'all') {
@@ -135,6 +136,7 @@ exports.getPredictions = async (req, res, next) => {
                 60,
                 JSON.stringify(predictions.rows)
               );
+              console.log(predictions.rows);
               res.json(predictions.rows);
             });
         })
