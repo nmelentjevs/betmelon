@@ -15,7 +15,7 @@
       ]
     },
     {
-      "name": "server",
+      "name": "api",
       "image": "kingusha/betmelon-server",
       "hostname": "api",
       "essential": false,
@@ -51,7 +51,7 @@
           "value": "ECS"
         }
       ],
-      "links": ["client", "server"]
+      "links": ["client", "api"]
     }
   ]
 }
