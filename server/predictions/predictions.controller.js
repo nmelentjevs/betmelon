@@ -20,7 +20,8 @@ exports.addPrediction = (req, res) => {
 };
 
 exports.getPredictions = async (req, res, next) => {
-  const { action, filter } = req.params;
+  // const { action, filter } = req.params;
+  const { actions } = req.params;
   console.log(req.params);
 
   // redisClient.get('predictions', async (err, values) => {
