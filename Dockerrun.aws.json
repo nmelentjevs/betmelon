@@ -38,7 +38,7 @@
         },
         {
           "name": "PGHOST",
-          "value": "betmelon-postgres.cqcy1wy01gug.eu-west-3.rds.amazonaws.com"
+          "value": "betmelon-postgres-2.cqcy1wy01gug.eu-west-3.rds.amazonaws.com"
         },
         {
           "name": "PGPASSWORD",
