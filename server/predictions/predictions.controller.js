@@ -12,7 +12,7 @@ exports.addPrediction = (req, res) => {
     )}', '${title}', '0', '0', '${country}', '${league}');`,
     (error, results) => {
       if (error) {
-        throw error;
+        res.status(500).json({ msg: error });
       }
       res.status(200).json({ msg: 'Prediction Added' });
     }
@@ -151,7 +151,7 @@ exports.likePrediction = (req, res) => {
       `INSERT INTO likes(post_id, liker_username) VALUES('${post_id}', '${username}');`,
       (error, results) => {
         if (error) {
-          throw error;
+          res.status(500).json({ msg: error });
         }
         res.status(200).json(results.rows);
       }
@@ -161,7 +161,7 @@ exports.likePrediction = (req, res) => {
       `INSERT INTO dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}');`,
       (error, results) => {
         if (error) {
-          throw error;
+          res.status(500).json({ msg: error });
         }
         res.status(200).json(results.rows);
       }
@@ -178,7 +178,7 @@ exports.editPrediction = (req, res) =>
     ).toUTCString()}' WHERE id='${req.body.id}';`,
     (error, results) => {
       if (error) {
-        throw error;
+        res.status(500).json({ msg: error });
       }
       res.status(200).json(results.rows);
     }

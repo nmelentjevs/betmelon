@@ -22,7 +22,7 @@ exports.collectEmail = (req, res) => {
         `SELECT * FROM users WHERE email = '${email}'`,
         (error, results) => {
           if (error) {
-            throw error;
+            res.status(500).json({ msg: error });
           } else if (results.rows.length === 0) {
             psql.query(
               `INSERT INTO users(name, username, email, registered_on, confirmed, uuid, password) VALUES ('${name}', '${username}', '${email}', '${new Date(
@@ -30,7 +30,7 @@ exports.collectEmail = (req, res) => {
               ).toUTCString()}', '0', '${newUUID}', '${hash}')`,
               (error, results) => {
                 if (error) {
-                  throw error;
+                  res.status(500).json({ msg: error });
                 }
                 res.status(200).json({ msg: 'Success' });
               }
@@ -54,7 +54,7 @@ exports.confirmEmail = (req, res) => {
     `SELECT * FROM users WHERE uuid = '${id}' AND confirmed = '0'`,
     (error, results) => {
       if (error) {
-        throw error;
+        res.status(500).json({ msg: error });
       } else if (results.rows.length === 0) {
         res.status(200).json({ msg: msgs.resend });
       } else {
@@ -62,7 +62,7 @@ exports.confirmEmail = (req, res) => {
         psql.query(`UPDATE users SET confirmed = '1' WHERE uuid = '${id}'`),
           (error, results) => {
             if (error) {
-              throw error;
+              res.status(500).json({ msg: error });
             } else {
               res.status(200);
             }

@@ -24,7 +24,7 @@ exports.getBets = async (authClient, req, res) => {
     let dataArray = data.data.values;
     return dataArray;
   } catch (error) {
-    return error;
+    res.status(500).json({ msg: error });
   }
 };
 
