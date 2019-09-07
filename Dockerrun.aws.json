@@ -20,6 +20,13 @@
       "hostname": "api",
       "essential": false,
       "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 30001,
+          "protocol": "tcp",
+          "containerPort": 3001
+        }
+      ],
       "environment": [
         {
           "name": "DOCKER_PROVIDER",
@@ -27,6 +34,7 @@
         }
       ]
     },
+
     {
       "name": "nginx",
       "image": "kingusha/betmelon-nginx",
