@@ -49,9 +49,6 @@ services:
       - PGDATABASE=betsheets
       - PGPASSWORD=password
       - PGPORT=5432
-      - API_HOST=http://localhost:3001/
-      - APP_SERVER_PORT=3001
-      - DATABASE_URL=postgres://postgres:password@betsheets:5432/betsheets
     ports:
       - '3001:3001'
       - '9229:9229'

@@ -51,6 +51,14 @@
         {
           "name": "PGDATABASE",
           "value": "betsheets"
+        },
+        {
+          "name": "REDIS_HOST",
+          "value": "betmelon-redis.xpxmjt.0001.euw3.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": 6379
         }
       ]
     },
