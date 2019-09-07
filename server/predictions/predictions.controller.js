@@ -113,7 +113,6 @@ exports.getPredictions = async (req, res, next) => {
             .then(likes => {
               predictions.rows.map(prediction => {
                 prediction.text = prediction.text.replace('*', "'");
-                console.log(prediction);
                 prediction.liked = 0;
                 prediction.disliked = 0;
                 prediction.liked_by = [];
