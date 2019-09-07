@@ -5,7 +5,7 @@
   "author": "First Last <first.last@example.com>",
   "main": "index.js",
   "scripts": {
-    "dev": "kill-port --port 9229 && node --inspect=0.0.0.0:9229 index.js",
+    "dev": "kill-port --port 9229 && forever node --inspect=0.0.0.0:9229 index.js",
     "start": "nodemon --delay 80ms --watch index.js --exec 'npm run dev'"
   },
   "dependencies": {
