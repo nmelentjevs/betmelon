@@ -28,7 +28,7 @@ spec:
             - name: PGHOST
               value: postgres-cluster-ip-service
             - name: PGDATABASE
-              value: postgres
+              value: betsheets
             - name: PGPORT
               value: '5432'
             - name: PGPASSWORD
