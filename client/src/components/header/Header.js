@@ -34,7 +34,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
   return (
     <Navbar expand="lg" className="container-fullwidth bg-light">
       <Link className="navbar-brand ml-3" to="/">
-        Betmelon
+        Betmelon v2
       </Link>{' '}
       <Navbar.Toggle />
       <Navbar.Collapse className="flex-grow-0 mr-3 navbar-flex">
