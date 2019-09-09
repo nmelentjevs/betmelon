@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import './Prediction.scss';
 
+import Moment from 'react-moment';
+
 import { Link } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
@@ -64,8 +66,8 @@ const Prediction = ({ data, like, state }) => {
   };
 
   return (
-    <Card border="dark" className="mb-4">
-      <Card.Body>
+    <Card border="dark" className="mb-4 prediction-card">
+      <Card.Body className="prediction-card-body">
         <div
           style={{
             display: 'flex',
@@ -83,7 +85,7 @@ const Prediction = ({ data, like, state }) => {
                 like(data.id, 1, state.user.username);
               }}
             >
-              <i className="fas fa-plus"></i> {data.liked}
+              {data.liked}
             </Button>
             <Button
               variant="outline-danger"
@@ -93,10 +95,12 @@ const Prediction = ({ data, like, state }) => {
                 like(data.id, -1, state.user.username);
               }}
             >
-              <i className="fas fa-minus"></i> {data.disliked}
+              {data.disliked}
             </Button>
           </div>
-          <Card.Title>{data.title}</Card.Title>
+          <Card.Title className="prediction-card-title">
+            {data.title}
+          </Card.Title>
           <div>
             <Badge
               pill
@@ -114,16 +118,16 @@ const Prediction = ({ data, like, state }) => {
         <Card.Text>{data.text}</Card.Text>
 
         <hr />
-        <div className="card-footer">
-          <Card.Text>
+        <div className="prediction-card-footer">
+          <Card.Text className="prediction-card-text">
             <small className="text-muted">
-              Last updated on {data.wrote_on}
-              {/* TODO ADD DATE NOW - DATE WROTE ON */}
+              <Moment format="D MMM YYYY">{data.wrote_on}</Moment> |{' '}
+              <Moment format="hh:mm">{data.wrote_on}</Moment>
             </small>
           </Card.Text>
-          <Card.Text>
+          <Card.Text className="prediction-card-text">
             <small className="text-muted">
-              By{' '}
+              By:{' '}
               <Link to={`/users/profile/${data.username}`}>
                 {data.username}
               </Link>

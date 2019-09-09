@@ -147,9 +147,10 @@ exports.getPredictions = async (req, res, next) => {
 
 exports.likePrediction = (req, res) => {
   const { post_id, like, username } = req.body;
+  console.log(req.body);
   if (like == 1) {
     psql.query(
-      `INSERT INTO likes(post_id, liker_username) VALUES('${post_id}', '${username}');`,
+      `INSERT INTO likes(post_id, liker_username) VALUES('${post_id}', '${username}') ON CONFLICT DO NOTHING;`,
       (error, results) => {
         if (error) {
           res.status(500).json({ msg: error });
@@ -159,7 +160,7 @@ exports.likePrediction = (req, res) => {
     );
   } else {
     psql.query(
-      `INSERT INTO dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}');`,
+      `INSERT INTO dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}') ON CONFLICT DO NOTHING;`,
       (error, results) => {
         if (error) {
           res.status(500).json({ msg: error });

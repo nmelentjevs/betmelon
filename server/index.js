@@ -4,20 +4,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 
-const psql = require('./db/psqldb');
-
 const emailController = require('./email/email.controller');
 const authController = require('./users/users.controller');
 const preditionController = require('./predictions/predictions.controller');
 const betsController = require('./bets/bets.controller');
-const sheetsController = require('./sheets/sheets.controller');
 
 const helmet = require('helmet'); // creates headers that protect from attacks (security)
 const bodyParser = require('body-parser'); // turns response into usable format
 const cors = require('cors'); // allows/disallows cross-site communication
 const morgan = require('morgan'); // logs requests
-
-const { client, authorize } = require('./sheets/sheets.controller');
 
 // App Middleware
 // const whitelist = ['http://localhost:3001', '*'];
@@ -41,40 +36,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/bets/authorize_sheets', (req, res) => {
-  authorize();
-});
+app.get('/bets/loadbets/:username', betsController.getBets);
 
-app.post('/bets/create_sheet', async (req, res) => {
-  const sheetId = await sheetsController.createNewSheet(client, req);
+app.post('/bets/addbet/', betsController.addBet);
 
-  // sheetsController.givePermissions(client, req, sheetId);
+app.post('/bets/updatebet', betsController.editBet);
 
-  res.send({ sheet: sheetId });
-});
-
-app.get('/bets/loadbets/:id', async (req, res) => {
-  let bets = await betsController.getBets(client, req, res);
-  filteredBets = bets.filter(bet => {
-    return bet.length > 0 && bet[0] !== (0 | '0');
-  });
-  res.send({ bets: filteredBets });
-});
-
-app.post('/bets/addbet/:id', async (req, res) => {
-  const add = await betsController.addBet(client, req);
-  const bets = await betsController.getBets(client, req, res);
-  res.send({ bets });
-});
-
-app.post('/bets/:updatebet', async (req, res) => {
-  const update = await betsController.updateBet(client, req.body);
-  const bets = await betsController.getBets(client, req, res);
-  filteredBets = bets.filter(bet => {
-    return bet.length > 0 && bet[0] !== (0 | '0');
-  });
-  res.send({ bets: filteredBets });
-});
+app.post('/bets/deletebet', betsController.deleteBet);
 
 app.get('/predictions/all/:filter/:action', preditionController.getPredictions);
 

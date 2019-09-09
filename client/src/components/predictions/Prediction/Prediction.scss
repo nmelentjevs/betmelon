@@ -1,14 +1,17 @@
-.card-footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 50px;
-}
+.predictions-section {
+  .prediction-card-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 3px;
+  }
 
-button {
-  font-size: 12px !important;
-}
+  button {
+    font-size: 12px !important;
+  }
 
-.badge {
-  padding: 0.8em .9em !important;
+  .badge {
+    padding: 0.8em .9em !important;
+  }
 }

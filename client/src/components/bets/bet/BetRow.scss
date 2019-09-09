@@ -1,0 +1,180 @@
+.bets-section {
+  input {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  .edit-save {
+    cursor: pointer;
+  }
+
+  .editable-table {
+    td {
+      text-align: center;
+      font-weight: bold;
+
+      input {
+        text-align: center;
+      }
+    }
+  }
+
+
+
+  .bet-card-body {
+    position: relative;
+    font-family: 'Montserrat', 'sans-serif';
+
+
+    .button {
+      &s {
+        display: flex;
+        flex-direction: row;
+        // border-bottom: 1px solid var(--border-color);
+        // border-left: 1px solid var(--border-color);
+        width: 25px;
+        height: 25px;
+        z-index: 1000;
+      }
+
+      &-action {
+        background: transparent;
+        border: none;
+      }
+
+      &-save {
+        width: 25px;
+        position: absolute;
+        top: 7.5px;
+        left: 7.5px;
+
+        i {
+          color: var(--success);
+          margin: 0 auto;
+          font-size: 1rem !important;
+        }
+
+
+      }
+
+      &-delete-confirm {
+        width: 25px;
+        color: salmon;
+        position: absolute;
+        top: 7.5px;
+        right: 7.5px;
+
+        i {
+          color: salmon;
+          margin: 0 auto;
+          font-size: 1rem !important;
+        }
+      }
+
+      &-edit {
+        width: 25px;
+        position: absolute;
+        top: 7.5px;
+        right: 7.5px;
+
+        i {
+          color: goldenrod;
+          margin: 0 auto;
+          font-size: 1rem !important;
+        }
+      }
+
+    }
+  }
+
+  p {
+    display: flex;
+    align-items: center;
+    text-align: left;
+  }
+
+  .bet-footer {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: bottom !important;
+  }
+
+  i {
+    flex: 0 0 10%;
+    margin-right: 10px;
+    color: silver;
+    font-size: 1.2rem;
+  }
+
+
+  .bet-field {
+    display: flex;
+
+    i {
+      flex: 10%;
+    }
+
+    span {
+      flex: 90%;
+      text-align: center;
+    }
+  }
+
+  ::placeholder {
+    padding-left: 10px;
+  }
+
+  .input-group-prepend,
+  .input-group-text {
+    width: 50px;
+  }
+
+  button {
+    font-size: 12px !important;
+  }
+
+  .custom-dropdown {
+    width: 100% !important;
+
+    a {
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      border: none !important;
+      border-radius: 0px !important;
+    }
+
+    input {
+      width: 100% !important;
+      height: 100% !important;
+      padding: .3rem .5rem;
+      border: none !important;
+      border-radius: 0px !important;
+      font-size: 14px;
+    }
+  }
+}
+
+// @media only screen and (max-width: 575px) {
+//   .bets-section {
+//     .bet-field {
+//       display: flex;
+//       justify-content: center;
+
+//       i {
+//         flex: 50%;
+//         text-align: right;
+//         margin-right: 80px;
+//       }
+
+//       span {
+//         flex: 50%;
+//         text-align: left;
+//       }
+//     }
+//   }
+// }

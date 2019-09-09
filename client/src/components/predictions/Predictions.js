@@ -40,14 +40,14 @@ const Predictions = props => {
   });
 
   useEffect(() => {
-    if (props.match.params.filter.length > 1) {
-      getData(props.match.params.filter.replace(':', ''));
-      console.log('filter');
-    } else {
-      console.log('non-filter');
-      getData();
-    }
-  }, [props]);
+    // if (props.match.params.filter.length > 1) {
+    //   getData(props.match.params.filter.replace(':', ''));
+    //   console.log('filter');
+    // } else {
+    //   console.log('non-filter');
+    //   getData();
+    // }
+  }, []);
 
   useEffect(() => {
     getData(filter);
@@ -214,7 +214,7 @@ const Predictions = props => {
             </div>
           </div>
         ) : (
-          <div className="mt-4">
+          <div className="mt-4 predictions-section">
             <div
               style={{
                 display: 'flex',
@@ -235,11 +235,6 @@ const Predictions = props => {
                 variant="outline-primary"
               >
                 {!addWindow ? 'ADD ' : 'CLOSE '}
-                {!addWindow ? (
-                  <i className="fas fa-plus" />
-                ) : (
-                  <i className="fas fa-minus" />
-                )}
               </Button>
             </div>
             {addWindow ? (

@@ -1,7 +1,7 @@
 header {
   display: flex;
   background: white;
-  height: 40px;
+  height: 100px;
   font-family: 'Roboto', sans-serif;
   flex-direction: row;
   justify-content: space-between;
@@ -33,4 +33,34 @@ header {
     }
   }
 
+}
+
+.navbar-flex {
+  width: 100%
+}
+
+
+
+@media only screen and (max-width: 990px) {
+  .navbar-flex {
+    width: 100%;
+
+    .flex-link {
+      text-align: center;
+    }
+  }
+
+  .flex-registered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbar-text {
+    width: 100%
+  }
+
+  .nav-link-hide {
+    display: none;
+  }
 }

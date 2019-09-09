@@ -142,7 +142,7 @@ function App() {
                       component={HallOfFame}
                     />
                     <PrivateRoute
-                      path="/bets/:sheet_id"
+                      path="/bets/:username"
                       state={state}
                       component={props => (
                         <Bets

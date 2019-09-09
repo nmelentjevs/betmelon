@@ -32,63 +32,72 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
   // const username = localStorage.getItem('username');
 
   return (
-    // <header>
     <Navbar expand="lg" className="container-fullwidth bg-light">
       <Link className="navbar-brand ml-3" to="/">
         Betmelon
-      </Link>
-
-      <Nav className="mx-auto justify-content-center ">
-        <Link className="nav-link" to={`/bets/${state.user.sheet_id}`}>
-          My Bets
-        </Link>
-        <div className="nav-link">|</div>
-        <Link className="nav-link" to={`/statistics/${state.user.sheet_id}`}>
-          Statistics
-        </Link>
-        <div className="nav-link">|</div>
-        <Link
-          className="nav-link"
-          to="/predictions/all"
-          onClick={() => {
-            if (window.location.href.match('predictions/all*')) {
-              window.location.reload();
-            }
-          }}
-        >
-          Predictions
-        </Link>
-        <div className="nav-link">|</div>
-        <Link className="nav-link" to="/halloffame">
-          Hall Of Fame
-        </Link>
-        <div className="nav-link">|</div>
-        <Link className="nav-link" to={`/users/profile/${state.user.username}`}>
-          Profile
-        </Link>
-      </Nav>
+      </Link>{' '}
       <Navbar.Toggle />
-      {state.isAuthenticated ? (
-        <Navbar.Collapse className="flex-grow-0 mr-3">
+      <Navbar.Collapse className="flex-grow-0 mr-3 navbar-flex">
+        <Nav className="mx-auto justify-content-center">
+          <Link
+            className="nav-link flex-link"
+            to={`/bets/${state.user.username}`}
+          >
+            My Bets
+          </Link>
+          <div className="nav-link nav-link-hide">|</div>
+          <Link
+            className="nav-link flex-link"
+            to={`/statistics/${state.user.sheet_id}`}
+          >
+            Statistics
+          </Link>
+          <div className="nav-link nav-link-hide">|</div>
+          <Link
+            className="nav-link flex-link"
+            to="/predictions/all"
+            onClick={() => {
+              if (window.location.href.match('predictions/all*')) {
+                window.location.reload();
+              }
+            }}
+          >
+            Predictions
+          </Link>
+          <div className="nav-link nav-link-hide">|</div>
+          <Link className="nav-link flex-link" to="/halloffame">
+            Hall Of Fame
+          </Link>
+          <div className="nav-link nav-link-hide">|</div>
+          <Link
+            className="nav-link flex-link"
+            to={`/users/profile/${state.user.username}`}
+          >
+            Profile
+          </Link>
+        </Nav>
+
+        {state.isAuthenticated ? (
           <Navbar.Text>
-            Signed in as:{' '}
-            <Link to={`/users/profile/${state.user.username}`}>
-              {state.user.username}
-            </Link>{' '}
-            |{' '}
-            <Link to="/login" onClick={() => logoutUser()}>
-              Logout
-            </Link>
+            <div className="flex-registered">
+              <Link to={`/users/profile/${state.user.username}`}>
+                {state.user.username}{' '}
+              </Link>
+              -{' '}
+              <Link to="/login" onClick={() => logoutUser()}>
+                exit
+              </Link>
+            </div>
           </Navbar.Text>
-        </Navbar.Collapse>
-      ) : (
-        <Navbar.Collapse className="justify-content-end">
+        ) : (
           <Navbar.Text>
-            <Link to="/login">Login</Link> |{' '}
-            <Link to="/register">Register</Link>
+            <div className="flex-registered">
+              <Link to="/login">Login </Link> |{' '}
+              <Link to="/register">Register</Link>
+            </div>
           </Navbar.Text>
-        </Navbar.Collapse>
-      )}
+        )}
+      </Navbar.Collapse>
     </Navbar>
     //   <div className="navigation">
     //     <ul className="navigation--list">
