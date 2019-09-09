@@ -1,0 +1,20 @@
+apiVersion: certmanager.k8s.io/v1alpha1 
+kind: Certificate
+metadata: 
+  name: betmelon-com-tls 
+spec: 
+  secretName: betmelon-com 
+  issuerRef: 
+    name: letsencrypt-prod 
+    kind: ClusterIssuer 
+  commonName: betmelon.com 
+  dnsNames: 
+    - betmelon.com 
+    - www.betmelon.com 
+  acme: 
+    config: 
+      - http01: 
+          ingessClass: nginx 
+        domains: 
+          - betmelon.com 
+          - www.betmelon.com
