@@ -14,6 +14,8 @@ const Prediction = ({ data, like, state }) => {
   const [likePost, setLikePost] = useState(false);
   const [dislikePost, setDislikePost] = useState(false);
 
+  let [edit, setEdit] = useState(false);
+
   useEffect(() => {}, [likePost, dislikePost]);
 
   const changeLikes = () => {

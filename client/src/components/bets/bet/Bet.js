@@ -148,7 +148,7 @@ const Bet = ({ bet, username, refreshBets }) => {
           </Col>
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
-              <i class="fas fa-sort-numeric-up-alt"></i>
+              <i className="fas fa-sort-numeric-up-alt"></i>
               <input
                 id="odds"
                 style={{ textAlign: 'center' }}

@@ -5,9 +5,24 @@ const psql = new Pool({
   password: process.env.PGPASSWORD,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
-  port: process.env.PGPORT
+  port: process.env.PGPORT,
+  ssl: false
 });
-psql.connect();
+psql.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error acquiring client', err.stack);
+  }
+  client.query(
+    "SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';",
+    (err, result) => {
+      release();
+      if (err) {
+        return console.error('Error executing query', err.stack);
+      }
+      console.log(result.rows);
+    }
+  );
+});
 psql.on('connect', () => {
   console.log(
     `Connected to database:${process.env.PGDATABASE} on port ${process.env.PGPORT}`

@@ -491,7 +491,7 @@ const Bets = ({ state: { state }, match, history }) => {
           username={match.params.username}
         />
       ) : (
-        <GlobalLoading />
+        <div>No bets available</div>
       )}
     </div>
   );

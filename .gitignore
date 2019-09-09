@@ -35,5 +35,3 @@ client/yarn-debog.log*
 client/yarn-error.log**
 
 server/node_modules
-
-worker/node_modules
