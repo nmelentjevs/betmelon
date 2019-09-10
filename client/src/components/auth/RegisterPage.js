@@ -32,8 +32,8 @@ const RegisterPage = ({ history }) => {
   };
 
   return (
-    <>
-      <Form onSubmit={e => handleSubmit(e)}>
+    <div style={{minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <Form onSubmit={e => handleSubmit(e)} style={{width: '500px', marginBottom: '200px', color: 'white'}}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
@@ -95,7 +95,7 @@ const RegisterPage = ({ history }) => {
           Submit
         </Button>
       </Form>
-    </>
+    </div>
   );
 };
 

@@ -40,9 +40,10 @@ const LoginPage = ({ history }) => {
   };
 
   return (
+    <div style={{minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
     <UserContext.Consumer>
       {({ state, authenticate }) => (
-        <Form onSubmit={e => handleSubmit(e, authenticate)}>
+        <Form onSubmit={e => handleSubmit(e, authenticate)} style={{width: '500px', marginBottom: '200px', color: 'white'}}>
           <Form.Group>
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -96,6 +97,7 @@ const LoginPage = ({ history }) => {
         </Form>
       )}
     </UserContext.Consumer>
+    </div>
   );
 };
 

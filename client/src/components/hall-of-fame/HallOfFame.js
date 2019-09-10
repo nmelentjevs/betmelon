@@ -49,16 +49,15 @@ const Tree = memo(({ children, name, style, defaultOpen = false }) => {
   );
 });
 
-const HallOfFame = ({ username }) => {
+const HallOfFame = ({ username, match, betFromBets }) => {
   const [bets, setBets] = useState([]);
 
   useEffect(() => {
     refreshBets();
-  }, []);
+  }, [betFromBets]);
 
   const refreshBets = () => {
     // const { username } = match.params;
-    const username = 'melon';
     axios
       .get(`/api/bets/loadbets/${username}`)
       .then(res => {
@@ -143,8 +142,18 @@ const HallOfFame = ({ username }) => {
       displayTreeArray.push(countryBet);
     });
 
-    const display = displayTreeArray.map((tree, i) => {
+    const display = displayTreeArray.sort((a,b) => {
+      console.log(Object.keys(a[Object.keys(a)[0]]))
+        if(Object.keys(a[Object.keys(a)[0]]) < Object.keys(b[Object.keys(b)[0]])) {
+          return -1;
+        } 
+        if(Object.keys(a[Object.keys(a)[0]]) > Object.keys(b[Object.keys(b)[0]])){
+          return 1
+        }
+        return 0;
+      }).map((tree, i) => {
       return tree.map((t, i) => {
+        console.log(Object.keys(t)[0])
         return (
           <Tree name={Object.keys(t)} key={i + Object.keys(t)}>
             {tree.map((t, i) => {
@@ -164,6 +173,7 @@ const HallOfFame = ({ username }) => {
                             username={username}
                             bg="dark"
                             text="white"
+                            refreshBets={refreshBets}
                           />
                         </Tree>
                       );

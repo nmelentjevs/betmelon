@@ -76,6 +76,7 @@ const Predictions = props => {
   };
 
   const addPrediction = async user => {
+    console.log(prediction)
     await axios
       .post('/api/predictions/add', { prediction, user })
       .then(res => {

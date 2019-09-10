@@ -3,13 +3,13 @@ const psql = require('../db/psqldb');
 const { redisClient, redisPublisher } = require('../redis/redis');
 
 exports.addPrediction = (req, res) => {
-  const { country, league, prediction, title } = req.body.prediction;
+  const { country, league, prediction, title, odds, amount } = req.body.prediction;
   const { user } = req.body;
   psql.query(
-    `INSERT INTO predictions(author, text, title, liked, disliked, country, league) VALUES ('${user}', '${prediction.replace(
+    `INSERT INTO predictions(author, text, title, liked, disliked, country, league, odds, amount) VALUES ('${user}', '${prediction.replace(
       "'",
       '*'
-    )}', '${title}', '0', '0', '${country}', '${league}');`,
+    )}', '${title}', '0', '0', '${country}', '${league}', '${odds}', '${amount}');`,
     (error, results) => {
       if (error) {
         res.status(500).json({ msg: error });
@@ -81,7 +81,7 @@ exports.getPredictions = async (req, res, next) => {
 
       await psql
         .query(
-          `SELECT predictions.id, predictions.author, predictions.text, predictions.title, predictions.edited_on, predictions.league, predictions.country, predictions.wrote_on, users.username
+          `SELECT predictions.id, predictions.author, predictions.text, predictions.title, predictions.edited_on, predictions.league, predictions.country, predictions.wrote_on, predictions.odds, predictions.amount, users.username
           FROM users
           INNER JOIN predictions ON users.username = predictions.author  ${
             filter

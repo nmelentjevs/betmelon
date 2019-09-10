@@ -27,6 +27,9 @@ br {
   user-select: none;
   cursor: default;
 }
+a {
+  cursor: pointer;
+}
 #root {
   padding: 30px;
 }

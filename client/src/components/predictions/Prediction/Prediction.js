@@ -14,7 +14,9 @@ const Prediction = ({ data, like, state }) => {
   const [likePost, setLikePost] = useState(false);
   const [dislikePost, setDislikePost] = useState(false);
 
-  useEffect(() => {}, [likePost, dislikePost]);
+  useEffect(() => {
+    console.log(data)
+  }, [likePost, dislikePost]);
 
   const changeLikes = () => {
     data.liked += 1;
@@ -131,6 +133,11 @@ const Prediction = ({ data, like, state }) => {
             <small className="text-muted">
               <Moment format="D MMM YYYY">{data.wrote_on}</Moment> |{' '}
               <Moment format="hh:mm">{data.wrote_on}</Moment>
+            </small>
+          </Card.Text>
+          <Card.Text className="prediction-card-text">
+            <small className="text-muted">
+              Bet odds: {data.odds} / amount: {data.amount} / possible profit: ${data.odds*data.amount-data.amount}
             </small>
           </Card.Text>
           <Card.Text className="prediction-card-text">

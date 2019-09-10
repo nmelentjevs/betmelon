@@ -8,7 +8,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 
 const MainContent = ({ state }) => {
   return (
-    <>
+    <div style={{height: '100vh'}}>
       <Row className="mb-4">
         <Jumbotron style={{ width: '100%', background: 'white' }}>
           <SectionDemo />
@@ -19,7 +19,7 @@ const MainContent = ({ state }) => {
         <Col> Have all the statistics in one place</Col>
         <Col>Track your bankroll and net profits</Col>
       </Row>
-    </>
+    </div>
   );
 };
 

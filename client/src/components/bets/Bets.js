@@ -13,6 +13,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import Notification from '../common/Notification';
 
+import HallOfFame from '../hall-of-fame/HallOfFame'
 import FilterButton from '../common/FilterButton';
 
 import GlobalLoading from '../common/GlobalLoading';
@@ -545,11 +546,12 @@ const Bets = ({ state: { state }, match, history }) => {
         <> </>
       )}
       {bets.length > 0 ? (
-        <BetDisplay
-          refreshBets={refreshBets}
-          bets={bets.sort((a, b) => b.id - a.id)}
-          username={match.params.username}
-        />
+        // <BetDisplay
+        //   refreshBets={refreshBets}
+        //   bets={bets.sort((a, b) => b.id - a.id)}
+        //   username={match.params.username}
+        // />
+        <HallOfFame username={match.params.username} betFromBets={bets}/>
       ) : (
         <div>No bets available</div>
       )}
