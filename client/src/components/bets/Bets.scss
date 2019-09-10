@@ -1,0 +1,42 @@
+.notificationz {
+  z-index: 1000 !important;
+  width: 200px;
+  font-family: 'Montserrat', 'sans-serif';
+
+  .toast-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    padding: .25rem .5rem !important;
+    font-family: 'Courier New', Courier, monospace;
+    height: 25px;
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    i {
+      margin: 0 0.2rem;
+    }
+
+    strong {
+      margin-right: 0.2rem !important;
+    }
+  }
+
+  .toast-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 40px;
+
+  }
+
+  button,
+  img {
+    display: none;
+  }
+
+}

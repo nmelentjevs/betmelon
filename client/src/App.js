@@ -133,13 +133,17 @@ function App() {
                     />
                     <PrivateRoute
                       state={state}
-                      path="/statistics/:filter"
-                      component={UserStatistics}
+                      path="/statistics/:username"
+                      component={props => (
+                        <UserStatistics state={state} {...props} />
+                      )}
                     />
                     <PrivateRoute
                       state={state}
                       path="/halloffame"
-                      component={HallOfFame}
+                      component={props => (
+                        <HallOfFame state={state} {...props} />
+                      )}
                     />
                     <PrivateRoute
                       path="/bets/:username"

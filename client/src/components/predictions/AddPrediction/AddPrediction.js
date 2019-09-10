@@ -44,13 +44,14 @@ const AddPrediction = ({
         handleClick();
         handleSubmit(e, state);
       }}
+      className="prediction-form"
     >
       <Form.Group>
         <Form.Label>Bet Title</Form.Label>
         <Form.Control
           type="text"
           name="title"
-          placeholder="Enter title"
+          placeholder="e.g. Barcelona takes on Real on Camp Nou"
           onChange={e => handleOnChange(e)}
           id="title"
         />
@@ -66,6 +67,7 @@ const AddPrediction = ({
           name="prediction"
           onChange={e => handleOnChange(e)}
           id="text"
+          placeholder="e.g. Barcelona easy win"
         />
       </Form.Group>
       <Form.Row>

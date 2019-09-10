@@ -11,6 +11,8 @@ import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 
+import Notification from '../common/Notification';
+
 import FilterButton from '../common/FilterButton';
 
 import GlobalLoading from '../common/GlobalLoading';
@@ -23,8 +25,7 @@ const Bets = ({ state: { state }, match, history }) => {
 
   const [loading, setLoading] = useState(true);
 
-  let [home, setHome] = useState('');
-  let [away, setAway] = useState('');
+  let [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     if (state.isAuthenticated) {
@@ -33,7 +34,7 @@ const Bets = ({ state: { state }, match, history }) => {
     }
   }, []);
 
-  useEffect(() => {}, [bets]);
+  useEffect(() => {}, [bets, setBets, notifications, setNotifications]);
 
   const refreshBets = () => {
     const { username } = match.params;
@@ -53,6 +54,7 @@ const Bets = ({ state: { state }, match, history }) => {
   };
 
   const addBet = e => {
+    notify('Bet added successfully!');
     handleClick();
     console.log(bet);
     e.preventDefault();
@@ -94,20 +96,43 @@ const Bets = ({ state: { state }, match, history }) => {
       .post(`/api/bets/addbet/`, { betObj, username })
       .then(res => {
         setBets(res.data.bets);
-        setTimeout(() => setAdded(true), 2500);
+        setTimeout(() => setAdded(true), 2000);
         setTimeout(() => refreshBets(), 100);
         console.log(res);
       })
       .catch(err => console.log(err));
   };
 
-  const handleOnChange = event => {
-    let { name, value } = event.target;
+  const notify = text => {
+    setNotifications([...notifications, text]);
+    console.log(notifications.length);
+    setTimeout(() => remove(0), 2000);
   };
+
+  const remove = i => {
+    console.log(i);
+    const element = document.getElementsByClassName('notificationz');
+    console.log(element[i]);
+    setTimeout(() => {
+      element[i].parentNode.removeChild(element[i]);
+      notifications.splice(i, 1);
+    }, 50);
+    setTimeout(() => setNotifications([...notifications]), 500);
+  };
+
+  const displayNotifications = () => {
+    return notifications.map((notification, i) => (
+      <div key={i}>
+        <Notification text={notification} remove={remove} i={i} />
+      </div>
+    ));
+  };
+
+  const handleOnChange = event => {};
 
   function simulateNetworkRequest() {
     return new Promise(resolve => {
-      setTimeout(resolve, 2000);
+      setTimeout(resolve, 1500);
     });
   }
 
@@ -120,14 +145,14 @@ const Bets = ({ state: { state }, match, history }) => {
     if (isButtonLoading) {
       simulateNetworkRequest().then(() => {
         setButtonLoading(false);
-        setTimeout(() => setAdded(false), 2300);
+        setTimeout(() => setAdded(false), 1800);
       });
     }
   }, [isButtonLoading]);
 
   const handleClick = () => {
     setButtonLoading(true);
-    setTimeout(() => setAdded(true), 2000);
+    setTimeout(() => setAdded(true), 1500);
   };
 
   const leagues = [
@@ -168,17 +193,52 @@ const Bets = ({ state: { state }, match, history }) => {
           leagues={leagues}
           filter={filter}
         />
-        <Button
-          variant="outline-primary"
-          onClick={() => toggleShow(!show)}
+        <div aria-live="polite" aria-atomic="true">
+          <div
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px'
+            }}
+            id="notification-wrapper"
+          >
+            {displayNotifications()}
+          </div>
+        </div>
+        <div
           style={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'center',
             alignItems: 'center'
           }}
         >
-          {!show ? 'ADD ' : 'CLOSE '}
-        </Button>
+          <Button
+            variant="outline-secondary mr-2"
+            style={{
+              width: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              height: '100%'
+            }}
+            onClick={() => refreshBets()}
+          >
+            <i
+              style={{ fontSize: '14px', color: 'silver' }}
+              className="fas fa-sync-alt"
+            ></i>
+          </Button>
+          <Button
+            variant="outline-primary"
+            onClick={() => toggleShow(!show)}
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}
+          >
+            {!show ? 'ADD ' : 'CLOSE '}
+          </Button>
+        </div>
       </div>
       {show ? (
         <Form noValidate onSubmit={e => addBet(e)}>
@@ -474,7 +534,7 @@ const Bets = ({ state: { state }, match, history }) => {
                 ''
               )}
               {added
-                ? 'PREDICTION ADDED!'
+                ? 'BET ADDED!'
                 : !isButtonLoading
                 ? 'SUBMIT'
                 : 'LOADING...'}

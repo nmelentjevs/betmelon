@@ -10,15 +10,16 @@ import axios from 'axios';
 
 import Moment from 'react-moment';
 
-const Bet = ({ bet, username, refreshBets }) => {
-  const [edit, setEdit] = useState(false);
-  const [deleteState, setDelete] = useState(false);
+const Bet = ({ bet, username, refreshBets, bg, text }) => {
+  let [edit, setEdit] = useState(false);
+  let [deleteState, setDelete] = useState(false);
   let [currentEdit, setCurrentEdit] = useState([]);
   let [currentDelete, setCurrentDelete] = useState([]);
 
   useEffect(() => {}, []);
 
   const editBet = () => {
+    setEdit(false);
     let result = document.getElementById('result').value;
     let score = document.getElementById('score').value;
     let league = document.getElementById('league').value;
@@ -39,21 +40,20 @@ const Bet = ({ bet, username, refreshBets }) => {
       .post('/api/bets/updatebet', { bet: currentEdit, id: bet.id })
       .then(res => console.log(res))
       .catch(err => console.log(err));
-    setEdit(false);
     setTimeout(() => refreshBets(), 100);
   };
 
   const deleteBet = () => {
+    setDelete(false);
+    setEdit(false);
     console.log('Sending delete request');
     axios
       .post('/api/bets/deletebet', {
         username,
         id: bet.id
       })
-      .then(res => console.log(res))
+      .then(res => setTimeout(() => refreshBets(), 100))
       .catch(err => console.log(err));
-    setDelete(false);
-    setTimeout(() => refreshBets(), 100);
   };
 
   return edit ? (
@@ -66,6 +66,8 @@ const Bet = ({ bet, username, refreshBets }) => {
           ? 'success'
           : 'danger'
       }
+      bg={bg}
+      text={text}
     >
       <Card.Body className="bet-card-body">
         {deleteState ? (
@@ -176,6 +178,8 @@ const Bet = ({ bet, username, refreshBets }) => {
       border={
         bet.result.match('^W') || bet.result === '1' ? 'success' : 'danger'
       }
+      bg={bg}
+      text={text}
     >
       <Card.Body className="bet-card-body">
         {deleteState ? (

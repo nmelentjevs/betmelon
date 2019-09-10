@@ -14,8 +14,6 @@ const Prediction = ({ data, like, state }) => {
   const [likePost, setLikePost] = useState(false);
   const [dislikePost, setDislikePost] = useState(false);
 
-  let [edit, setEdit] = useState(false);
-
   useEffect(() => {}, [likePost, dislikePost]);
 
   const changeLikes = () => {
@@ -68,7 +66,12 @@ const Prediction = ({ data, like, state }) => {
   };
 
   return (
-    <Card border="dark" className="mb-4 prediction-card">
+    <Card
+      bg="dark"
+      text="light"
+      border="primary"
+      className="mb-4 prediction-card"
+    >
       <Card.Body className="prediction-card-body">
         <div
           style={{
@@ -100,7 +103,10 @@ const Prediction = ({ data, like, state }) => {
               {data.disliked}
             </Button>
           </div>
-          <Card.Title className="prediction-card-title">
+          <Card.Title
+            className="prediction-card-title"
+            style={{ color: 'white' }}
+          >
             {data.title}
           </Card.Title>
           <div>

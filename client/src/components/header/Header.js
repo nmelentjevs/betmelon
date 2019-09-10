@@ -32,7 +32,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
   // const username = localStorage.getItem('username');
 
   return (
-    <Navbar expand="lg" className="container-fullwidth bg-light">
+    <Navbar expand="lg" className="container-fullwidth bg-dark navbar-dark">
       <Link className="navbar-brand ml-3" to="/">
         Betmelon v2
       </Link>{' '}
@@ -48,7 +48,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
           <div className="nav-link nav-link-hide">|</div>
           <Link
             className="nav-link flex-link"
-            to={`/statistics/${state.user.sheet_id}`}
+            to={`/statistics/${state.user.username}`}
           >
             Statistics
           </Link>

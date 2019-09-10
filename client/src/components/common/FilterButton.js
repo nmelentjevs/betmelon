@@ -8,7 +8,7 @@ const FilterButton = ({ setFilter, countries, leagues, filter }) => (
   <DropdownButton
     id="dropdown-basic-button"
     title={`Filter by: ${filter}`}
-    variant="outline-info"
+    variant="outline-primary"
     onClick={e =>
       e.target.innerText.startsWith('Filter') ||
       e.target.innerText.startsWith('Date') ||

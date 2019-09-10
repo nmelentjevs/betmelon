@@ -1,4 +1,7 @@
 .predictions-section {
+  overflow: visible;
+  background: #191b21;
+
   .prediction-card-footer {
     display: flex;
     flex-direction: row;
@@ -13,5 +16,36 @@
 
   .badge {
     padding: 0.8em .9em !important;
+  }
+
+  .prediction-form {
+    color: white;
+  }
+
+
+  #inputGroupPrepend {
+    background: #301934;
+    color: pink;
+    border: purple 1px solid;
+  }
+
+  input,
+  select,
+  textarea {
+    background: #301934;
+    color: white;
+    border: purple 1px solid;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    color: white;
+    background: #301934;
+    border: gold 1px solid;
+  }
+
+  ::placeholder {
+    color: white;
   }
 }

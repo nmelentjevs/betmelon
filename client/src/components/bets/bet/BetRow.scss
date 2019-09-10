@@ -23,83 +23,12 @@
 
 
 
-  .bet-card-body {
-    position: relative;
-    font-family: 'Montserrat', 'sans-serif';
-
-
-    .button {
-      &s {
-        display: flex;
-        flex-direction: row;
-        // border-bottom: 1px solid var(--border-color);
-        // border-left: 1px solid var(--border-color);
-        width: 25px;
-        height: 25px;
-        z-index: 1000;
-      }
-
-      &-action {
-        background: transparent;
-        border: none;
-      }
-
-      &-save {
-        width: 25px;
-        position: absolute;
-        top: 7.5px;
-        left: 7.5px;
-
-        i {
-          color: var(--success);
-          margin: 0 auto;
-          font-size: 1rem !important;
-        }
-
-
-      }
-
-      &-delete-confirm {
-        width: 25px;
-        color: salmon;
-        position: absolute;
-        top: 7.5px;
-        right: 7.5px;
-
-        i {
-          color: salmon;
-          margin: 0 auto;
-          font-size: 1rem !important;
-        }
-      }
-
-      &-edit {
-        width: 25px;
-        position: absolute;
-        top: 7.5px;
-        right: 7.5px;
-
-        i {
-          color: goldenrod;
-          margin: 0 auto;
-          font-size: 1rem !important;
-        }
-      }
-
-    }
-  }
-
   p {
     display: flex;
     align-items: center;
     text-align: left;
   }
 
-  .bet-footer {
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: bottom !important;
-  }
 
   i {
     flex: 0 0 10%;
@@ -122,7 +51,7 @@
     }
   }
 
-  ::placeholder {
+  input {
     padding-left: 10px;
   }
 
@@ -157,6 +86,95 @@
       font-size: 14px;
     }
   }
+}
+
+.bet-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: bottom !important;
+  height: 40px !important;
+}
+
+.bet-card {
+  z-index: 1 !important;
+}
+
+.bet-card-body {
+  position: relative;
+  font-family: 'Montserrat', 'sans-serif';
+  // color: black;
+  font-size: 16px;
+  height: 125px;
+
+  .bet-card-title {
+    color: whitesmoke;
+  }
+
+  i {
+    margin-right: 10px
+  }
+
+  .button {
+    &s {
+      display: flex !important;
+      flex-direction: row !important;
+      // border-bottom: 1px solid var(--border-color);
+      // border-left: 1px solid var(--border-color);
+      width: 25px !important;
+      height: 25px !important;
+      z-index: 1000 !important;
+    }
+
+    &-action {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    &-save {
+      width: 25px !important;
+      position: absolute !important;
+      top: 7.5px !important;
+      left: 7.5px !important;
+
+      i {
+        color: var(--success) !important;
+        margin: 0 auto !important;
+        font-size: 1rem !important;
+      }
+
+
+    }
+
+    &-delete-confirm {
+      width: 25px !important;
+      color: salmon !important;
+      position: absolute !important;
+      top: 7.5px !important;
+      right: 7.5px !important;
+
+      i {
+        color: salmon !important;
+        margin: 0 auto !important;
+        font-size: 1rem !important;
+      }
+    }
+
+    &-edit {
+      width: 25px !important;
+      position: absolute !important;
+      top: 7.5px !important;
+      right: 7.5px !important;
+
+      i {
+        color: goldenrod !important;
+        margin: 0 auto !important;
+        font-size: 1rem !important;
+      }
+    }
+
+  }
+
+
 }
 
 // @media only screen and (max-width: 575px) {

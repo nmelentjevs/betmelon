@@ -1,14 +1,12 @@
 .predictions-section {
 
-
-
   .pagination {
     font-size: 1.25rem;
 
 
 
     .active {
-      border-bottom: red 1px solid;
+      border-bottom: red 2px solid;
     }
 
     li {
@@ -16,7 +14,7 @@
       cursor: pointer;
 
       a {
-        color: black !important;
+        color: whitesmoke !important;
       }
     }
   }
