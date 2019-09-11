@@ -1,14 +1,14 @@
 #!/bin/sh
 
-initdb -D /var/lib/postgres/data
+-- initdb -D /var/lib/postgres/data
 
-pg_ctl -D "/var/lib/postgres/data" -o "-c listen_addresses=''" -w start
+-- pg_ctl -D "/var/lib/postgres/data" -o "-c listen_addresses=''" -w start
 
-psql -U postgres -d postgres -c "CREATE USER betsheets;"
+-- psql -U postgres -d postgres -c "CREATE USER betsheets;"
 
-psql -U postgres -v ON_ERROR_STOP=1 -d postgres -c "CREATE DATABASE betsheets;"
+-- psql -U postgres -v ON_ERROR_STOP=1 -d postgres -c "CREATE DATABASE betsheets;"
 
-\c betsheets
+-- \c betsheets
 
 
 CREATE USER betsheets;
@@ -76,7 +76,7 @@ disliker_username VARCHAR(50)
 );
 GRANT ALL PRIVILEGES ON DATABASE betsheets TO betsheets;
 
-# stop internal postgres server
-pg_ctl -v ON_ERROR_STOP=1 -D "/var/lib/postgres/data" -m fast -w stop
+-- # stop internal postgres server
+-- pg_ctl -v ON_ERROR_STOP=1 -D "/var/lib/postgres/data" -m fast -w stop
 
-exec "$@"
+-- exec "$@"
