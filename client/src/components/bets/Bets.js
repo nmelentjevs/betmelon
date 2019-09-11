@@ -5,6 +5,8 @@ import BetDisplay from './bet-display/BetDisplay';
 
 import './Bets.scss';
 
+import DatePicker from 'react-datepicker';
+
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -13,7 +15,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import Notification from '../common/Notification';
 
-import HallOfFame from '../hall-of-fame/HallOfFame'
+import HallOfFame from '../hall-of-fame/HallOfFame';
 import FilterButton from '../common/FilterButton';
 
 import GlobalLoading from '../common/GlobalLoading';
@@ -188,12 +190,6 @@ const Bets = ({ state: { state }, match, history }) => {
           flexDirection: 'row'
         }}
       >
-        <FilterButton
-          setFilter={setFilter}
-          countries={countries}
-          leagues={leagues}
-          filter={filter}
-        />
         <div aria-live="polite" aria-atomic="true">
           <div
             style={{
@@ -551,7 +547,7 @@ const Bets = ({ state: { state }, match, history }) => {
         //   bets={bets.sort((a, b) => b.id - a.id)}
         //   username={match.params.username}
         // />
-        <HallOfFame username={match.params.username} betFromBets={bets}/>
+        <HallOfFame username={match.params.username} betFromBets={bets} />
       ) : (
         <div>No bets available</div>
       )}

@@ -34,8 +34,8 @@ const Global = createGlobalStyle`
     cursor: default;
   }
   #root {
-    padding: 30px;
-  }
+  padding: 15px;
+}
 `;
 
 const Frame = styled('div')`

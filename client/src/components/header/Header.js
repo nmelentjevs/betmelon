@@ -50,7 +50,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
             className="nav-link flex-link"
             to={`/statistics/${state.user.username}`}
           >
-            Statistics
+            My Statistics
           </Link>
           <div className="nav-link nav-link-hide">|</div>
           <Link

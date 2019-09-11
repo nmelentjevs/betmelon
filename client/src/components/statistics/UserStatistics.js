@@ -4,7 +4,17 @@ import axios from 'axios';
 
 import './UserStatistics.scss';
 
-import ByCountry from './Charts/ByCountry';
+import ChartsBox from './Charts/ChartsBox';
+import StatBox from './Charts/StatBox';
+import ByWinPercentage from './Charts/ByWinPercentage';
+
+import {
+  statLeague,
+  statCountry,
+  statResult,
+  statOdds,
+  statDates
+} from './helper-statistics';
 
 const UserStatistics = ({ state: { state }, match }) => {
   const [bets, setBets] = useState([]);
@@ -37,48 +47,18 @@ const UserStatistics = ({ state: { state }, match }) => {
       .catch(err => console.log(err));
   };
 
-  const statistifyData = (data, type) => {
-    let countryObj = {};
-    const countries = data.map(bet => {
-      countryObj = { ...countryObj, [bet.country]: 0 };
-      return bet.country;
-    });
-
-    const unique = (value, index, self) => {
-      return self.indexOf(value) === index;
-    };
-    const count = (array, value) => {
-      return array.filter(v => v === value).length;
-    };
-
-    const betOnCountryAmount = countries
-      .filter(unique)
-      .map(b => {
-        return { x: b, y: count(countries, b) };
-      })
-      .sort((a, b) => a.y - b.y);
-
-    console.log(betOnCountryAmount);
-    if (type === 'data') {
-      return betOnCountryAmount;
-    } else if (type === 'labels') {
-      let sortedCountries = [];
-      betOnCountryAmount.map(b => {
-        sortedCountries.push(b.x);
-      });
-      return sortedCountries;
-    }
-    return;
-  };
-
   return (
     <div className="statistics-section">
-      <ByCountry statistifyData={statistifyData} bets={bets} />
-      <ByCountry statistifyData={statistifyData} bets={bets} />
-      <ByCountry statistifyData={statistifyData} bets={bets} />
-      <ByCountry statistifyData={statistifyData} bets={bets} />
-      <ByCountry statistifyData={statistifyData} bets={bets} />
-      <ByCountry statistifyData={statistifyData} bets={bets} />
+      {/* <button onClick={() => console.log(statDates(bets))}>Ok </button> */}
+      <ChartsBox
+        statResult={statResult}
+        statCountry={statCountry}
+        statOdds={statOdds}
+        statLeague={statLeague}
+        statDates={statDates}
+        bets={bets}
+        username={match.params.username}
+      />
     </div>
   );
 };

@@ -53,7 +53,8 @@ const HallOfFame = ({ username, match, betFromBets }) => {
   const [bets, setBets] = useState([]);
 
   useEffect(() => {
-    refreshBets();
+    // refreshBets();
+    setBets(betFromBets);
   }, [betFromBets]);
 
   const refreshBets = () => {
@@ -99,8 +100,6 @@ const HallOfFame = ({ username, match, betFromBets }) => {
       sortedCountries.push(b.x);
     });
 
-    console.log(sortedCountries);
-
     let tree = [];
     data.map(bet => {
       tree = [
@@ -142,50 +141,54 @@ const HallOfFame = ({ username, match, betFromBets }) => {
       displayTreeArray.push(countryBet);
     });
 
-    const display = displayTreeArray.sort((a,b) => {
-      console.log(Object.keys(a[Object.keys(a)[0]]))
-        if(Object.keys(a[Object.keys(a)[0]]) < Object.keys(b[Object.keys(b)[0]])) {
+    const display = displayTreeArray
+      .sort((a, b) => {
+        if (
+          Object.keys(a[Object.keys(a)[0]]) < Object.keys(b[Object.keys(b)[0]])
+        ) {
           return -1;
-        } 
-        if(Object.keys(a[Object.keys(a)[0]]) > Object.keys(b[Object.keys(b)[0]])){
-          return 1
+        }
+        if (
+          Object.keys(a[Object.keys(a)[0]]) > Object.keys(b[Object.keys(b)[0]])
+        ) {
+          return 1;
         }
         return 0;
-      }).map((tree, i) => {
-      return tree.map((t, i) => {
-        console.log(Object.keys(t)[0])
-        return (
-          <Tree name={Object.keys(t)} key={i + Object.keys(t)}>
-            {tree.map((t, i) => {
-              return (
-                <Tree name={Object.keys(t[Object.keys(t)])} key={i}>
-                  {t[Object.keys(t)][Object.keys(t[Object.keys(t)])].bets.map(
-                    (bet, i) => {
-                      return (
-                        <Tree
-                          name={`${bet.teams} - ${bet.result} - ${moment(
-                            bet.date_added
-                          ).format('DD/MM/YYYY')}`}
-                          key={bet.date_added}
-                        >
-                          <Bet
-                            bet={bet}
-                            username={username}
-                            bg="dark"
-                            text="white"
-                            refreshBets={refreshBets}
-                          />
-                        </Tree>
-                      );
-                    }
-                  )}
-                </Tree>
-              );
-            })}
-          </Tree>
-        );
+      })
+      .map((tree, i) => {
+        return tree.map((t, i) => {
+          return (
+            <Tree name={Object.keys(t)} key={i + Object.keys(t)}>
+              {tree.map((t, i) => {
+                return (
+                  <Tree name={Object.keys(t[Object.keys(t)])} key={i}>
+                    {t[Object.keys(t)][Object.keys(t[Object.keys(t)])].bets.map(
+                      (bet, i) => {
+                        return (
+                          <Tree
+                            name={`${bet.teams} - ${bet.result} - ${moment(
+                              bet.date_added
+                            ).format('DD/MM/YYYY')}`}
+                            key={bet.date_added}
+                          >
+                            <Bet
+                              bet={bet}
+                              username={username}
+                              bg="dark"
+                              text="white"
+                              refreshBets={refreshBets}
+                            />
+                          </Tree>
+                        );
+                      }
+                    )}
+                  </Tree>
+                );
+              })}
+            </Tree>
+          );
+        });
       });
-    });
 
     const displayFiltered = display.map(x => x[0]);
 

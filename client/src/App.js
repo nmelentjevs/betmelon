@@ -118,7 +118,12 @@ function App() {
           {(state, setUserFromLocal, setUserFromRedisCache, logout) => (
             <>
               <Header state={state} />
-              <Container>
+              <Container
+                // style={{
+                //   borderRight: '1px white solid',
+                //   borderLeft: '1px solid white'
+                // }}
+              >
                 <Main user={state}>
                   <div className="main-wrapper">
                     <Route
