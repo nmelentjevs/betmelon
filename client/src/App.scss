@@ -12,6 +12,8 @@ body,
     'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
+  min-height: 100vh;
+  background: url('./static/memphis-mini-dark.png')
 }
 html,
 body,
@@ -26,6 +28,7 @@ hr,
 br {
   user-select: none;
   cursor: default;
+  color: white;
 }
 a {
   cursor: pointer;

@@ -191,7 +191,7 @@ const Predictions = props => {
         loading ? (
           <GlobalLoading fullscreen={true} />
         ) : predictions.length === 0 ? (
-          <div className="mt-4">
+          <div className="mt-4 predictions-section">
             <FilterButton
               setFilter={setFilter}
               countries={countries}

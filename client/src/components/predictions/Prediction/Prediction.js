@@ -15,7 +15,7 @@ const Prediction = ({ data, like, state }) => {
   const [dislikePost, setDislikePost] = useState(false);
 
   useEffect(() => {
-    console.log(data)
+    console.log(data);
   }, [likePost, dislikePost]);
 
   const changeLikes = () => {
@@ -130,22 +130,21 @@ const Prediction = ({ data, like, state }) => {
         <hr />
         <div className="prediction-card-footer">
           <Card.Text className="prediction-card-text">
-            <small className="text-muted">
+            <small>
               <Moment format="D MMM YYYY">{data.wrote_on}</Moment> |{' '}
               <Moment format="hh:mm">{data.wrote_on}</Moment>
             </small>
           </Card.Text>
           <Card.Text className="prediction-card-text">
-            <small className="text-muted">
-              Bet odds: {data.odds} / amount: {data.amount} / possible profit: ${data.odds*data.amount-data.amount}
+            <small>
+              Bet odds: {data.odds} / amount: {data.amount} / possible profit: $
+              {data.odds * data.amount - data.amount}
             </small>
           </Card.Text>
           <Card.Text className="prediction-card-text">
-            <small className="text-muted">
+            <small>
               By:{' '}
-              <Link to={`/users/profile/${data.username}`}>
-                {data.username}
-              </Link>
+              <Link to={`/statistics/${data.username}`}>{data.username}</Link>
             </small>
           </Card.Text>
         </div>

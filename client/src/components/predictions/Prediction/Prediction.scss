@@ -2,15 +2,20 @@
   min-height: 100vh;
 
   overflow: visible;
-  background: #191b21;
+  background: transparent;
 
   .prediction-card-footer {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: 3px;
+    height: 100%;
   }
+
+  .prediction-cart-text {
+    color: whitesmoke !important;
+  }
+
 
   button {
     font-size: 12px !important;

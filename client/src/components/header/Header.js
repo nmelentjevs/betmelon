@@ -76,6 +76,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
             Profile
           </Link>
         </Nav>
+        {/* <CoolThingy /> */}
 
         {state.isAuthenticated ? (
           <Navbar.Text>

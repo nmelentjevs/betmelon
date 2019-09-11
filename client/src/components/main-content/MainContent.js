@@ -8,9 +8,9 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 
 const MainContent = ({ state }) => {
   return (
-    <div style={{height: '100vh'}}>
+    <div style={{ height: '100vh' }}>
       <Row className="mb-4">
-        <Jumbotron style={{ width: '100%', background: 'white' }}>
+        <Jumbotron style={{ width: '100%', background: 'transparent' }}>
           <SectionDemo />
         </Jumbotron>
       </Row>
