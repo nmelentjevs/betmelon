@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Prediction from './Prediction/Prediction';
 
+import { useTrail, animated as a } from 'react-spring';
+
 import './Predictions.scss';
 
 import GlobalLoading from '../common/GlobalLoading';
@@ -31,6 +33,8 @@ const Predictions = props => {
   let added = false;
 
   let [filter, setFilter] = useState('');
+
+  const [toggle, set] = useState(true);
 
   let [pagination, setPagination] = useState({
     offset: 0,
@@ -185,6 +189,16 @@ const Predictions = props => {
     );
   }
 
+  const config = { mass: 5, tension: 2000, friction: 200 };
+
+  const paginationTrail = useTrail(pagination.elements.length, {
+    config,
+    opacity: toggle ? 1 : 0,
+    x: toggle ? 0 : 20,
+    height: toggle ? 80 : 0,
+    from: { opacity: 0, x: 20, height: 0 }
+  });
+
   return (
     <UserContext.Consumer>
       {({ state }) =>
@@ -264,16 +278,26 @@ const Predictions = props => {
                 {paginationElement}
               </div>
             }
-            {pagination.elements
+            {paginationTrail
               .sort((a, b) => a.id - b.id)
-              .map((prediction, i) => (
-                <Prediction
-                  key={i}
-                  data={prediction}
-                  like={likePrediction}
-                  state={state}
-                />
+              .map(({ x, height, ...rest }, index) => (
+                <a.div
+                  key={index}
+                  className="trails-text"
+                  style={{
+                    ...rest,
+                    transform: x.interpolate(x => `translate3d(0,${x}px,0)`)
+                  }}
+                >
+                  <Prediction
+                    style={{ height }}
+                    data={pagination.elements[index]}
+                    like={likePrediction}
+                    state={state}
+                  />
+                </a.div>
               ))}
+
             {
               <div
                 style={{

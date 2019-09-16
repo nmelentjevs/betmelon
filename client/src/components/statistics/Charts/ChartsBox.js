@@ -22,9 +22,9 @@ const ChartsBox = ({
   const [type, setType] = useState('country');
   return (
     <div style={{ width: '100%', marginTop: '20px' }}>
-      <Tab.Container id="list-group-tabs-example" defaultActiveKey="#overall">
+      <Tab.Container id="list-group-tabs-example" defaultActiveKey="#country">
         <Row>
-          <Col sm={2}>
+          <Col sm={12} lg={2} className="text-center">
             <ListGroup>
               <ListGroup.Item
                 variant="secondary"
@@ -48,7 +48,7 @@ const ChartsBox = ({
               <SliderPage />
             </ListGroup>
           </Col>
-          <Col sm={10}>
+          <Col sm={12} lg={10}>
             {bets.length > 0 ? (
               <Tab.Content>
                 <Tab.Pane eventKey="#country">

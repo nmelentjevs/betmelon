@@ -14,34 +14,16 @@ const Dashboard = ({ match }) => {
   const [loadingBets, setLoadingBets] = useState(true);
   const [bets, setBets] = useState([]);
   useEffect(() => {
-    axios
-      .get(`/api/users/all/:${match.params.id}`)
-      .then(res => {
-        console.log(res.data);
-        setProfile(res.data.user);
-        setLoadingUser(false);
-        axios
-          .get(`/api/bets/loadbets/${res.data.user.sheet_id}`)
-          .then(res => {
-            setLoadingBets(false);
-            setBets(res.data.bets);
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
+    // axios
+    //   .get(`/api/users/all/${match.params.id}`)
+    //   .then(res => {
+    //     console.log(res.data);
+    //     setProfile(res.data.user);
+    //     setLoadingUser(false);
+    //   })
+    //   .catch(err => console.log(err));
   }, [match.params.id]);
-  return (
-    <>
-      {!loadingBets && bets && bets.length > 0 ? (
-        <Statistics profile={profile} bets={bets} />
-      ) : !bets ? (
-        <CreateBettingProfile profile={profile} />
-      ) : (
-        <GlobalLoading />
-      )}
-      {!loadingUser ? <Profile profile={profile} /> : <GlobalLoading />}
-    </>
-  );
+  return <>Ok</>;
 };
 
 export default Dashboard;

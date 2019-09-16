@@ -8,8 +8,6 @@ import './BetRow.scss';
 
 import axios from 'axios';
 
-import Moment from 'react-moment';
-
 const Bet = ({ bet, username, refreshBets, bg, text }) => {
   let [edit, setEdit] = useState(false);
   let [deleteState, setDelete] = useState(false);
@@ -20,6 +18,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
 
   const editBet = () => {
     setEdit(false);
+    setDelete(false);
     let result = document.getElementById('result').value;
     let score = document.getElementById('score').value;
     let league = document.getElementById('league').value;
@@ -58,7 +57,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
 
   return edit ? (
     <Card
-      className="text-center mb-3 bet-card"
+      className="text-center bet-card"
       border={
         edit
           ? 'primary'
@@ -94,8 +93,8 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           ''
         )}
 
-        <Card.Title className="mb-4 bet-card-title">{bet.teams}</Card.Title>
-        <Row>
+        {/* <Card.Title className="mb-4 bet-card-title">{bet.teams}</Card.Title> */}
+        <Row className="mt-4">
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-poll"></i>
@@ -103,27 +102,6 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
                 id="result"
                 style={{ textAlign: 'center' }}
                 defaultValue={bet.result}
-              ></input>
-            </Card.Text>
-          </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
-            <Card.Text className="bet-field">
-              <i className="fas fa-futbol"></i>
-              <input
-                id="score"
-                style={{ textAlign: 'center' }}
-                defaultValue={bet.score}
-              ></input>
-            </Card.Text>
-          </Col>
-
-          <Col lg={4} sm={6} xs={6} className="mb-2">
-            <Card.Text className="bet-field">
-              <i className="far fa-flag"></i>
-              <input
-                id="league"
-                style={{ textAlign: 'center' }}
-                defaultValue={bet.league}
               ></input>
             </Card.Text>
           </Col>
@@ -137,7 +115,26 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
               ></input>
             </Card.Text>
           </Col>
-
+          <Col lg={4} sm={6} xs={6} className="mb-2">
+            <Card.Text className="bet-field">
+              <i className="far fa-flag"></i>
+              <input
+                id="league"
+                style={{ textAlign: 'center' }}
+                defaultValue={bet.league}
+              ></input>
+            </Card.Text>
+          </Col>
+          <Col lg={4} sm={6} xs={6} className="mb-2">
+            <Card.Text className="bet-field">
+              <i className="fas fa-futbol"></i>
+              <input
+                id="score"
+                style={{ textAlign: 'center' }}
+                defaultValue={bet.score}
+              ></input>
+            </Card.Text>
+          </Col>
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-ellipsis-h"></i>
@@ -160,7 +157,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer
+      {/* <Card.Footer
         className="text-muted bet-footer"
         style={{
           height: '30px'
@@ -170,11 +167,11 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           <Moment format="D MMM YYYY">{bet.date_added}</Moment> at{' '}
           <Moment format="hh:mm">{bet.date_added}</Moment>
         </p>
-      </Card.Footer>
+      </Card.Footer> */}
     </Card>
   ) : (
     <Card
-      className="text-center mb-3 bet-card"
+      className="text-center bet-card"
       border={
         bet.result.match('^W') || bet.result === '1' ? 'success' : 'danger'
       }
@@ -206,21 +203,21 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           </button>
         )}
 
-        <Card.Title className="mb-4 bet-card-title">{bet.teams}</Card.Title>
-        <Row>
+        {/* <Card.Title className="mb-4 bet-card-title">{bet.teams}</Card.Title> */}
+        <Row className="mt-4">
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-poll"></i>
               <span>{bet.result}</span>
             </Card.Text>
           </Col>
+
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
-              <i className="fas fa-futbol"></i>
-              <span>{bet.score}</span>
+              <i className="fas fa-globe-americas"></i>
+              <span>{bet.country}</span>
             </Card.Text>
           </Col>
-
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="far fa-flag"></i>
@@ -229,11 +226,10 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           </Col>
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
-              <i className="fas fa-globe-americas"></i>
-              <span>{bet.country}</span>
+              <i className="fas fa-futbol"></i>
+              <span>{bet.score}</span>
             </Card.Text>
           </Col>
-
           <Col lg={4} sm={6} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-ellipsis-h"></i>
@@ -248,7 +244,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           </Col>
         </Row>
       </Card.Body>
-      <Card.Footer
+      {/* <Card.Footer
         className="text-muted bet-footer"
         style={{
           height: '30px'
@@ -258,7 +254,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
           <Moment format="D MMM YYYY">{bet.date_added}</Moment> |{' '}
           <Moment format="hh:mm">{bet.date_added}</Moment>
         </p>
-      </Card.Footer>
+      </Card.Footer> */}
     </Card>
   );
 };

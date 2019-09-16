@@ -1,6 +1,6 @@
 const uuidv4 = require('uuid/v4');
 
-const psql = require('../db/psqldb');
+const db = require('../db/psqldb');
 
 const bcrypt = require('bcryptjs');
 
@@ -18,13 +18,13 @@ exports.collectEmail = (req, res) => {
 
   if (password === rpassword) {
     bcrypt.hash(password, 10, async (err, hash) => {
-      psql.query(
+      db.query(
         `SELECT * FROM users WHERE email = '${email}'`,
         (error, results) => {
           if (error) {
             res.status(500).json({ msg: error });
           } else if (results.rows.length === 0) {
-            psql.query(
+            db.query(
               `INSERT INTO users(name, username, email, registered_on, confirmed, uuid, password) VALUES ('${name}', '${username}', '${email}', '${new Date(
                 Date('dd/mm/yyyy:HH:MM')
               ).toUTCString()}', '0', '${newUUID}', '${hash}')`,
@@ -50,7 +50,7 @@ exports.collectEmail = (req, res) => {
 exports.confirmEmail = (req, res) => {
   const { id } = req.params;
 
-  psql.query(
+  db.query(
     `SELECT * FROM users WHERE uuid = '${id}' AND confirmed = '0'`,
     (error, results) => {
       if (error) {
@@ -59,7 +59,7 @@ exports.confirmEmail = (req, res) => {
         res.status(200).json({ msg: msgs.resend });
       } else {
         res.status(200).json({ msg: msgs.confirmed });
-        psql.query(`UPDATE users SET confirmed = '1' WHERE uuid = '${id}'`),
+        db.query(`UPDATE users SET confirmed = '1' WHERE uuid = '${id}'`),
           (error, results) => {
             if (error) {
               res.status(500).json({ msg: error });

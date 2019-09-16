@@ -15,7 +15,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import Notification from '../common/Notification';
 
-import HallOfFame from '../hall-of-fame/HallOfFame';
+import BetTree from './BetTree';
 import FilterButton from '../common/FilterButton';
 
 import GlobalLoading from '../common/GlobalLoading';
@@ -59,7 +59,6 @@ const Bets = ({ state: { state }, match, history }) => {
   const addBet = e => {
     notify('Bet added successfully!');
     handleClick();
-    console.log(bet);
     e.preventDefault();
 
     const inputs = document.getElementsByTagName('input');
@@ -78,7 +77,6 @@ const Bets = ({ state: { state }, match, history }) => {
       'comments',
       'anonymous'
     ];
-    console.log(state);
 
     const {
       user: { username }
@@ -93,7 +91,6 @@ const Bets = ({ state: { state }, match, history }) => {
       }
       i++;
     }
-    console.log(betObj);
 
     axios
       .post(`/api/bets/addbet/`, { betObj, username })
@@ -101,21 +98,17 @@ const Bets = ({ state: { state }, match, history }) => {
         setBets(res.data.bets);
         setTimeout(() => setAdded(true), 2000);
         setTimeout(() => refreshBets(), 100);
-        console.log(res);
       })
       .catch(err => console.log(err));
   };
 
   const notify = text => {
     setNotifications([...notifications, text]);
-    console.log(notifications.length);
     setTimeout(() => remove(0), 2000);
   };
 
   const remove = i => {
-    console.log(i);
     const element = document.getElementsByClassName('notificationz');
-    console.log(element[i]);
     setTimeout(() => {
       element[i].parentNode.removeChild(element[i]);
       notifications.splice(i, 1);
@@ -157,26 +150,6 @@ const Bets = ({ state: { state }, match, history }) => {
     setButtonLoading(true);
     setTimeout(() => setAdded(true), 1500);
   };
-
-  const leagues = [
-    ['Premier League', 'Championship', 'EFL Cup', 'FA Cup'],
-    ['Ligue 1', 'Ligue 2', 'Coupe de la Ligue'],
-    ['La Liga', 'Segunda Division', 'Copa Del Rey'],
-    ['Bundesliga', '2. Bundesliga', 'DFB Pokal'],
-    ['Seria A', 'Seria B', 'Coppa Italia'],
-    ['Champions League', 'Europa League'],
-    ['World Cup', 'Europe Cup', 'Copa America']
-  ];
-
-  const countries = [
-    'England',
-    'France',
-    'Spain',
-    'Germany',
-    'Italy',
-    'Europe',
-    'National'
-  ];
 
   return loading ? (
     <GlobalLoading fullscreen={true} />
@@ -547,7 +520,7 @@ const Bets = ({ state: { state }, match, history }) => {
         //   bets={bets.sort((a, b) => b.id - a.id)}
         //   username={match.params.username}
         // />
-        <HallOfFame username={match.params.username} betFromBets={bets} />
+        <BetTree username={match.params.username} betFromBets={bets} />
       ) : (
         <div>No bets available</div>
       )}

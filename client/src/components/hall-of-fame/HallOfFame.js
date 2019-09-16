@@ -1,214 +1,95 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import axios from 'axios';
-import { useSpring, a } from 'react-spring';
-import { useMeasure, usePrevious } from '../bets/bets-display-helpers/helpers';
-import {
-  Global,
-  Frame,
-  Title,
-  Content,
-  toggle
-} from '../bets/bets-display-helpers/styles';
-import * as Icons from '../bets/bets-display-helpers/icons';
-
-import Bet from '../bets/bet/Bet';
+import FameCard from './FameCard';
 
 import moment from 'moment';
 
-const Tree = memo(({ children, name, style, defaultOpen = false }) => {
-  const [isOpen, setOpen] = useState(defaultOpen);
-  const previous = usePrevious(isOpen);
-  const [bind, { height: viewHeight }] = useMeasure();
-  const { height, opacity, transform } = useSpring({
-    from: { height: 0, opacity: 0, transform: 'translate3d(20px,0,0)' },
-    to: {
-      height: isOpen ? viewHeight : 0,
-      opacity: isOpen ? 1 : 0,
-      transform: `translate3d(${isOpen ? 0 : 20}px,0,0)`
-    }
-  });
-  const Icon =
-    Icons[`${children ? (isOpen ? 'Minus' : 'Plus') : 'Close'}SquareO`];
-  return (
-    <Frame>
-      <Icon
-        style={{ ...toggle, opacity: children ? 1 : 0.3 }}
-        onClick={() => setOpen(!isOpen)}
-      />
-      <Title style={style}>{name}</Title>
-      <Content
-        style={{
-          opacity,
-          height: isOpen && previous === isOpen ? 'auto' : height
-        }}
-      >
-        <a.div style={{ transform }} {...bind} children={children} />
-      </Content>
-    </Frame>
-  );
-});
+import './HallOfFame.scss';
 
-const HallOfFame = ({ username, match, betFromBets }) => {
-  const [bets, setBets] = useState([]);
+import axios from 'axios';
+
+const HallOfFame = () => {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // refreshBets();
-    setBets(betFromBets);
-  }, [betFromBets]);
-
-  const refreshBets = () => {
-    // const { username } = match.params;
     axios
-      .get(`/api/bets/loadbets/${username}`)
+      .get('/api/users/all/halloffameusers')
       .then(res => {
-        console.log(res.data);
-        // setLoading(false);
-        if (res.data.msg !== 'No entries found') {
-          if (res.data.bets.length !== 0) {
-            setBets(res.data.bets);
-          }
-        }
+        console.log(res.data.users);
+        setUsers(res.data.users);
+        setLoading(false);
       })
       .catch(err => console.log(err));
-  };
+  }, []);
 
-  const displayBetsTree = data => {
-    let countryObj = {};
-    const countries = data.map(bet => {
-      countryObj = { ...countryObj, [bet.country]: 0 };
-      return bet.country.replace(' ', '');
-    });
+  return users.length > 0 && !loading ? (
+    <div className="halloffame mt-4">
+      <h1 className="halloffame-heading">Best of the</h1>
 
-    const unique = (value, index, self) => {
-      return self.indexOf(value) === index;
-    };
-
-    const count = (array, value) => {
-      return array.filter(v => v === value).length;
-    };
-
-    const betOnCountryAmount = countries
-      .filter(unique)
-      .map(b => {
-        return { x: b, y: count(countries, b) };
-      })
-      .sort((a, b) => a.y - b.y);
-
-    let sortedCountries = [];
-    betOnCountryAmount.map(b => {
-      sortedCountries.push(b.x);
-    });
-
-    let tree = [];
-    data.map(bet => {
-      tree = [
-        ...tree,
-        { [bet.country.replace(' ', '')]: { [bet.league]: { bets: [] } } }
-      ];
-      return;
-    });
-
-    tree.map(tre => {
-      data.map(bet => {
-        if (bet.country.toString() === Object.keys(tre).toString()) {
-          if (Object.keys(tre[bet.country])[0].toString() === bet.league) {
-            tre[bet.country][bet.league].bets.push(bet);
-          }
-        }
-      });
-    });
-
-    const result = tree.reduce((unique, o) => {
-      if (
-        !unique.some(
-          obj =>
-            Object.keys(obj[Object.keys(obj).toString()])[0] ===
-            Object.keys(o[Object.keys(o).toString()])[0]
-        )
-      ) {
-        unique.push(o);
-      }
-      return unique;
-    }, []);
-
-    const displayTreeArray = [];
-    const test = sortedCountries.map(b => {
-      let countryBet = result.filter(a => {
-        return b === Object.keys(a).toString();
-      });
-
-      displayTreeArray.push(countryBet);
-    });
-
-    const display = displayTreeArray
-      .sort((a, b) => {
-        if (
-          Object.keys(a[Object.keys(a)[0]]) < Object.keys(b[Object.keys(b)[0]])
-        ) {
-          return -1;
-        }
-        if (
-          Object.keys(a[Object.keys(a)[0]]) > Object.keys(b[Object.keys(b)[0]])
-        ) {
-          return 1;
-        }
-        return 0;
-      })
-      .map((tree, i) => {
-        return tree.map((t, i) => {
-          return (
-            <Tree name={Object.keys(t)} key={i + Object.keys(t)}>
-              {tree.map((t, i) => {
-                return (
-                  <Tree name={Object.keys(t[Object.keys(t)])} key={i}>
-                    {t[Object.keys(t)][Object.keys(t[Object.keys(t)])].bets.map(
-                      (bet, i) => {
-                        return (
-                          <Tree
-                            name={`${bet.teams} - ${bet.result} - ${moment(
-                              bet.date_added
-                            ).format('DD/MM/YYYY')}`}
-                            key={bet.date_added}
-                          >
-                            <Bet
-                              bet={bet}
-                              username={username}
-                              bg="dark"
-                              text="white"
-                              refreshBets={refreshBets}
-                            />
-                          </Tree>
-                        );
-                      }
-                    )}
-                  </Tree>
-                );
-              })}
-            </Tree>
-          );
-        });
-      });
-
-    const displayFiltered = display.map(x => x[0]);
-
-    return displayFiltered;
-  };
-
-  return (
-    <>
-      {bets.length > 0 ? (
-        <>
-          <Global />
-          {/* <button onClick={() => displayBetsTree(bets)}>ok</button> */}
-          <Tree name="Bets" defaultOpen>
-            {displayBetsTree(bets)}
-          </Tree>{' '}
-        </>
-      ) : (
-        ''
-      )}
-    </>
+      <div className="halloffame-section">
+        <div className="ratio-section ratio-section-win">
+          <ul>
+            <h4>Win ratio</h4>
+            {users
+              .filter(u => u.win_ratio != null)
+              .sort((a, b) => b.win_ratio - a.win_ratio)
+              .filter((u, i) => i < 5)
+              .map((u, i) => (
+                <FameCard
+                  key={i}
+                  data={`${u.win_ratio * 100}%`}
+                  username={u.username}
+                />
+              ))}
+          </ul>
+        </div>
+        <div className="ratio-section ratio-section-total">
+          <ul>
+            <h4>Total bets</h4>
+            {users
+              .filter(u => u.total_bets != null)
+              .sort((a, b) => b.total_bets - a.total_bets)
+              .filter((u, i) => i < 5)
+              .map((u, i) => (
+                <FameCard key={i} data={u.total_bets} username={u.username} />
+              ))}
+          </ul>
+        </div>
+        <div className="ratio-section ratio-section-profit">
+          <ul>
+            <h4>Total wins</h4>
+            {users
+              .filter(u => u.total_wins != null)
+              .sort((a, b) => b.total_wins - a.total_wins)
+              .filter((u, i) => i < 5)
+              .map((u, i) => (
+                <FameCard key={i} data={u.total_wins} username={u.username} />
+              ))}
+          </ul>
+        </div>
+        <div className="ratio-section ratio-section-activity">
+          <ul>
+            <h4>Early birds</h4>
+            {users
+              .filter(u => u.registered_on != null)
+              .sort((a, b) =>
+                moment.utc(a.registered_on).diff(moment.utc(b.registered_on))
+              )
+              .filter((u, i) => i < 5)
+              .map((u, i) => (
+                <FameCard
+                  key={i}
+                  data={moment(u.registered_on).format('DD MMMM YYYY')}
+                  username={u.username}
+                />
+              ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div>Loading</div>
   );
 };
 

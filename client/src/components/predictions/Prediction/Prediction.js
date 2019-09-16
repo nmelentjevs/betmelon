@@ -105,12 +105,6 @@ const Prediction = ({ data, like, state }) => {
               {data.disliked}
             </Button>
           </div>
-          <Card.Title
-            className="prediction-card-title"
-            style={{ color: 'white' }}
-          >
-            {data.title}
-          </Card.Title>
           <div>
             <Badge
               pill
@@ -124,6 +118,9 @@ const Prediction = ({ data, like, state }) => {
             </Badge>
           </div>
         </div>
+        <Card.Title className="prediction-card-title text-center ">
+          {data.title}
+        </Card.Title>
 
         <Card.Text>{data.text}</Card.Text>
 

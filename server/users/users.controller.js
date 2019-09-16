@@ -1,4 +1,4 @@
-const psql = require('../db/psqldb');
+const db = require('../db/psqldb');
 
 const { redisClient, redisPublisher } = require('../redis/redis');
 
@@ -6,27 +6,37 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 exports.getAll = (req, res) => {
-  req.params.id = req.params.id.replace(':', '');
+  console.log(req.params.id);
 
-  psql.query(
-    `SELECT * FROM users ${
-      req.params.id ? `WHERE username = '${req.params.id}'` : ''
-    };`,
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).json({
-        user: {
-          name: results.rows[0].name,
-          email: results.rows[0].email,
-          username: results.rows[0].username.replace(/\s/g, ''),
-          sheet_id: results.rows[0].sheet_id
-        }
-      });
-    }
-  );
+  if (req.params.id === 'halloffameusers') {
+    db.query(`SELECT * FROM users;`)
+      .then(users => {
+        console.log(users);
+        res.status(200).json({
+          users
+        });
+      })
+      .catch(err => console.log(err));
+  } else {
+    db.query(
+      `SELECT * FROM users ${
+        req.params.id ? `WHERE username = '${req.params.id}'` : ''
+      };`
+    )
+      .then(results => {
+        res.status(200).json({
+          user: {
+            name: results[0].name,
+            email: results[0].email,
+            username: results[0].username.replace(/\s/g, ''),
+            sheet_id: results[0].sheet_id
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  }
 };
+
 exports.addUser = async (req, res, next) => {
   let { name, username, email, password, rpassword } = req.body;
 
@@ -34,13 +44,12 @@ exports.addUser = async (req, res, next) => {
 
   if (password === rpassword) {
     bcrypt.hash(password, 10, async (err, hash) => {
-      psql
-        .query(
-          `INSERT INTO users(name, email, registered_on, password, username) VALUES ('${name}', '${email}', '${new Date(
-            Date('dd/mm/yyyy:HH:MM')
-          ).toUTCString()}', '${hash}', '${username}');`
-        )
-        .then(results => res.json(results.rows))
+      db.query(
+        `INSERT INTO users(name, email, registered_on, password, username) VALUES ('${name}', '${email}', '${new Date(
+          Date('dd/mm/yyyy:HH:MM')
+        ).toUTCString()}', '${hash}', '${username}');`
+      )
+        .then(results => res.json(results))
         .catch(err => console.log(err));
     });
     next();
@@ -52,21 +61,20 @@ exports.addUser = async (req, res, next) => {
 exports.login = (req, res) => {
   const { username, password } = req.body;
 
-  psql
-    .query(`SELECT * FROM users WHERE username = '${username}'`)
+  db.query(`SELECT * FROM users WHERE username = '${username}'`)
     .then(results => {
-      if (results.rows.length === 0) {
+      if (results.length === 0) {
         res.json({ msg: 'No such user', err: 'username' });
       } else {
         bcrypt
-          .compare(password.toString(), results.rows[0].password.toString())
+          .compare(password.toString(), results[0].password.toString())
           .then(matched => {
             if (matched) {
               const user = {
-                name: results.rows[0].name,
-                email: results.rows[0].email,
-                username: results.rows[0].username.replace(/\s/g, ''),
-                sheet_id: results.rows[0].sheet_id
+                name: results[0].name,
+                email: results[0].email,
+                username: results[0].username.replace(/\s/g, ''),
+                sheet_id: results[0].sheet_id
               };
               res.json({
                 login: true,
@@ -92,27 +100,17 @@ exports.login = (req, res) => {
   // });
 };
 
-exports.addSheetId = (username, id) => {
-  psql
-    .query(`UPDATE users SET sheet_id = '${id}' WHERE username = '${username}'`)
-    .then(results => {
-      return { msg: 'Success' };
-    })
-    .catch(err => console.log(err));
-};
-
 exports.setUserFromLocal = (req, res) => {
   const { username } = req.body;
 
-  psql
-    .query(`SELECT * FROM users WHERE username = '${username}'`)
+  db.query(`SELECT * FROM users WHERE username = '${username}'`)
     .then(results =>
       res.send({
         user: {
-          name: results.rows[0].name,
-          email: results.rows[0].email,
-          username: results.rows[0].username.replace(/\s/g, ''),
-          sheet_id: results.rows[0].sheet_id
+          name: results[0].name,
+          email: results[0].email,
+          username: results[0].username.replace(/\s/g, ''),
+          sheet_id: results[0].sheet_id
         }
       })
     )

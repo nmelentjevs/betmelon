@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import Toast from 'react-bootstrap/Toast';
 
+import './Notification.scss';
+
 const Notification = ({ text, remove, i }) => {
   const [show, setShow] = useState(true);
 
@@ -15,8 +17,11 @@ const Notification = ({ text, remove, i }) => {
   return (
     <Toast className="notificationz" show={show} onClose={() => toggleShow()}>
       <Toast.Header>
-        <span>
-          <i style={{ fontSize: '10px' }} className="fas fa-circle-notch"></i>
+        <span className="notification-text">
+          <i
+            style={{ fontSize: '10px', color: 'black' }}
+            className="fas fa-circle-notch"
+          ></i>
           <strong className="mr-auto">Bets</strong>
         </span>
         <small>just now</small>

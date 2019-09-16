@@ -35,6 +35,12 @@ const Global = createGlobalStyle`
   #root {
   padding: 15px;
   }
+
+  @media only screen and (max-width: 768px) {
+    #root {
+  padding: 0;
+  }
+}
 `;
 
 const Frame = styled('div')`

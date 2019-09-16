@@ -1,6 +1,6 @@
 .bets-section {
   min-height: 100vh;
-  
+
   input {
     display: inline-block;
     padding: 0;
@@ -99,6 +99,7 @@
 
 .bet-card {
   z-index: 1 !important;
+  background: transparent !important;
 }
 
 .bet-card-body {
@@ -117,6 +118,8 @@
   }
 
   .button {
+    cursor: pointer !important;
+
     &s {
       display: flex !important;
       flex-direction: row !important;
@@ -142,6 +145,7 @@
         color: var(--success) !important;
         margin: 0 auto !important;
         font-size: 1rem !important;
+        cursor: pointer !important;
       }
 
 
@@ -158,6 +162,7 @@
         color: salmon !important;
         margin: 0 auto !important;
         font-size: 1rem !important;
+        cursor: pointer !important;
       }
     }
 
@@ -171,6 +176,7 @@
         color: goldenrod !important;
         margin: 0 auto !important;
         font-size: 1rem !important;
+        cursor: pointer !important;
       }
     }
 

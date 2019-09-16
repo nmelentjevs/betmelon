@@ -4,17 +4,33 @@
   overflow: visible;
   background: transparent;
 
-  .prediction-card-footer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
+  .prediction-card {
+    background: black !important;
+
+    &-footer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    &-title {
+      color: white;
+      margin-top: -30px;
+    }
+
+    &-text {
+      color: whitesmoke !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+      &-title {
+        margin-top: 0;
+      }
+    }
   }
 
-  .prediction-cart-text {
-    color: whitesmoke !important;
-  }
 
 
   button {

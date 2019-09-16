@@ -23,6 +23,7 @@ const statCountry = (data, type) => {
     let sortedCountries = [];
     betOnCountryAmount.map(b => {
       sortedCountries.push(b.x);
+      return;
     });
     return sortedCountries;
   }
@@ -48,6 +49,7 @@ const statLeague = (data, type) => {
     let sortedLeagues = [];
     betOnLeagueAmount.map(b => {
       sortedLeagues.push(b.x);
+      return;
     });
     return sortedLeagues;
   }
@@ -84,13 +86,9 @@ const statResult = (data, type) => {
     });
     return betOnCountryAmount;
   } else {
-    const leagues = data.map(bet => {
-      return bet.league;
-    });
+    const leagues = data.map(bet => bet.league);
 
-    const results = data.map(bet => {
-      return bet.result;
-    });
+    const results = data.map(bet => bet.result);
 
     const count = (array, value, league) => {
       return array.filter(
@@ -116,9 +114,7 @@ const statResult = (data, type) => {
 };
 
 const statOdds = (data, type) => {
-  const results = data.map(bet => {
-    return bet.result;
-  });
+  const results = data.map(bet => bet.result);
 
   const count = (array, value) => {
     return array.filter(v => v === value).length;

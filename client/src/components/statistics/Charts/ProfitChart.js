@@ -5,7 +5,8 @@ import {
   VictoryAxis,
   VictoryLine,
   VictoryZoomContainer,
-  VictoryBrushContainer
+  VictoryBrushContainer,
+  VictoryLabel
 } from 'victory';
 import moment from 'moment';
 
@@ -62,6 +63,9 @@ class ProfitChart extends React.Component {
                 padding: 5
               }
             }}
+            domain={{
+              y: [-30, 30]
+            }}
           />
           <VictoryLine
             style={{
@@ -111,6 +115,69 @@ class ProfitChart extends React.Component {
             data={this.props.datesFunction(this.props.bets)}
           />
         </VictoryChart>
+        <g>
+          <svg viewBox="0 0 450 350">
+            <VictoryLabel
+              x={25}
+              y={75}
+              text={"Relative peak interest in 'Web developer' \n % over time"}
+            />
+            <VictoryLabel
+              x={425}
+              y={75}
+              text={'React downloads\n in millions'}
+            />
+            <g transform={'translate(0, 40)'}>
+              {/* Shared independent axis */}
+              <VictoryAxis
+                scale="time"
+                standalone={false}
+                tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+                tickFormat={date =>
+                  date.toLocaleString('en-us', { month: 'short' })
+                }
+              />
+              {/* Dependent axis for data set one. */}
+              <VictoryAxis
+                dependentAxis
+                domain={[0, 110]}
+                offsetX={50}
+                orientation="left"
+                standalone={false}
+              />
+              {/* Dataset one */}
+              <VictoryLine
+                data={this.props.datesFunction(this.props.bets)}
+                domain={{
+                  x: [new Date(2018, 1, 1), new Date(2019, 1, 1)],
+                  y: [0, 110]
+                }}
+                interpolation="monotoneX"
+                scale={{ x: 'time', y: 'linear' }}
+                standalone={false}
+              />
+              {/* Dependent axis for data set two. */}
+              <VictoryAxis
+                dependentAxis
+                domain={[0, 15000000]}
+                orientation="right"
+                standalone={false}
+                tickFormat={x => `${x / 1000000}`}
+              />
+              {/* Dataset two */}
+              <VictoryLine
+                data={this.props.datesFunction(this.props.bets)}
+                domain={{
+                  x: [new Date(2018, 1, 1), new Date(2019, 1, 1)],
+                  y: [0, 40]
+                }}
+                interpolation="monotoneX"
+                scale={{ x: 'time', y: 'linear' }}
+                standalone={false}
+              />
+            </g>
+          </svg>
+        </g>
       </div>
     );
   }
