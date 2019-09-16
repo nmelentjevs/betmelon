@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
-const Prediction = ({ data, like, state }) => {
+const Prediction = ({ data, like, state, mock }) => {
   const [likePost, setLikePost] = useState(false);
   const [dislikePost, setDislikePost] = useState(false);
 
@@ -82,29 +82,34 @@ const Prediction = ({ data, like, state }) => {
             flexDirection: 'row',
             marginBottom: '10px'
           }}
+          className="prediction-card-badges"
         >
-          <div>
-            <Button
-              className="d.d-inline-block mr-2"
-              variant="outline-success"
-              onClick={() => {
-                changeLikes();
-                like(data.id, 1, state.user.username);
-              }}
-            >
-              {data.liked}
-            </Button>
-            <Button
-              variant="outline-danger"
-              className="d.d-inline-block"
-              onClick={() => {
-                changeDislikes();
-                like(data.id, -1, state.user.username);
-              }}
-            >
-              {data.disliked}
-            </Button>
-          </div>
+          {!mock ? (
+            <div className="prediction-card-buttons">
+              <Button
+                className="d.d-inline-block mr-2"
+                variant="outline-success"
+                onClick={() => {
+                  changeLikes();
+                  like(data.id, 1, state.user.username);
+                }}
+              >
+                {data.liked}
+              </Button>
+              <Button
+                variant="outline-danger"
+                className="d.d-inline-block"
+                onClick={() => {
+                  changeDislikes();
+                  like(data.id, -1, state.user.username);
+                }}
+              >
+                {data.disliked}
+              </Button>
+            </div>
+          ) : (
+            ''
+          )}
           <div>
             <Badge
               pill

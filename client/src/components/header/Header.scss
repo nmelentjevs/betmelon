@@ -35,6 +35,11 @@ header {
 
 }
 
+// .navbar {
+// background: transparent !important;// border-top: 1px solid white !important;
+// background: black !important;
+// }
+
 .navbar-flex {
   width: 100%
 }
@@ -46,12 +51,14 @@ header {
 
 
 @media only screen and (max-width: 990px) {
-  #root{
-    padding:0;
+  #root {
+    padding: 0;
   }
-  body{
-    padding:0;
+
+  body {
+    padding: 0;
   }
+
   .navbar-flex {
     width: 100%;
 

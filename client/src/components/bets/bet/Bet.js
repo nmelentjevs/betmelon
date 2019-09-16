@@ -95,7 +95,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
 
         {/* <Card.Title className="mb-4 bet-card-title">{bet.teams}</Card.Title> */}
         <Row className="mt-4">
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-poll"></i>
               <input
@@ -105,7 +105,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
               ></input>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-globe-americas"></i>
               <input
@@ -115,7 +115,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
               ></input>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="far fa-flag"></i>
               <input
@@ -125,7 +125,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
               ></input>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-futbol"></i>
               <input
@@ -135,7 +135,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
               ></input>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-ellipsis-h"></i>
               <input
@@ -145,7 +145,7 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
               ></input>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-sort-numeric-up-alt"></i>
               <input
@@ -205,38 +205,38 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
 
         {/* <Card.Title className="mb-4 bet-card-title">{bet.teams}</Card.Title> */}
         <Row className="mt-4">
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-poll"></i>
               <span>{bet.result}</span>
             </Card.Text>
           </Col>
 
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-globe-americas"></i>
               <span>{bet.country}</span>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="far fa-flag"></i>
               <span>{bet.league}</span>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-futbol"></i>
               <span>{bet.score}</span>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-ellipsis-h"></i>
               <span>{bet.bet}</span>
             </Card.Text>
           </Col>
-          <Col lg={4} sm={6} xs={6} className="mb-2">
+          <Col lg={4} sm={12} xs={6} className="mb-2">
             <Card.Text className="bet-field">
               <i className="fas fa-sort-numeric-up-alt"></i>
               <span>{bet.odds}</span>

@@ -96,7 +96,7 @@ const Bets = ({ state: { state }, match, history }) => {
       .post(`/api/bets/addbet/`, { betObj, username })
       .then(res => {
         setBets(res.data.bets);
-        setTimeout(() => setAdded(true), 2000);
+        setTimeout(() => setAdded(true), 1000);
         setTimeout(() => refreshBets(), 100);
       })
       .catch(err => console.log(err));
@@ -104,7 +104,7 @@ const Bets = ({ state: { state }, match, history }) => {
 
   const notify = text => {
     setNotifications([...notifications, text]);
-    setTimeout(() => remove(0), 2000);
+    setTimeout(() => remove(0), 1000);
   };
 
   const remove = i => {
@@ -128,7 +128,7 @@ const Bets = ({ state: { state }, match, history }) => {
 
   function simulateNetworkRequest() {
     return new Promise(resolve => {
-      setTimeout(resolve, 1500);
+      setTimeout(resolve, 750);
     });
   }
 
@@ -141,14 +141,14 @@ const Bets = ({ state: { state }, match, history }) => {
     if (isButtonLoading) {
       simulateNetworkRequest().then(() => {
         setButtonLoading(false);
-        setTimeout(() => setAdded(false), 1800);
+        setTimeout(() => setAdded(false), 900);
       });
     }
   }, [isButtonLoading]);
 
   const handleClick = () => {
     setButtonLoading(true);
-    setTimeout(() => setAdded(true), 1500);
+    setTimeout(() => setAdded(true), 750);
   };
 
   return loading ? (

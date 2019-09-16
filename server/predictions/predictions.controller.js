@@ -167,38 +167,27 @@ exports.likePrediction = (req, res) => {
   console.log(req.body);
   if (like == 1) {
     db.query(
-      `INSERT INTO likes(post_id, liker_username) VALUES('${post_id}', '${username}') ON CONFLICT DO NOTHING;`,
-      (error, results) => {
-        if (error) {
-          res.status(500).json({ msg: error });
-        }
-        res.status(200).json(results);
-      }
-    );
+      `INSERT INTO likes(post_id, liker_username) VALUES('${post_id}', '${username}') ON CONFLICT DO NOTHING;`
+    )
+      .then(result => res.json({ msg: 'liked' }))
+      .catch(err => res.json(err));
   } else {
     db.query(
-      `INSERT INTO dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}') ON CONFLICT DO NOTHING;`,
-      (error, results) => {
-        if (error) {
-          res.status(500).json({ msg: error });
-        }
-        res.status(200).json(results);
-      }
-    );
+      `INSERT INTO dislikes(post_id, disliker_username) VALUES('${post_id}', '${username}') ON CONFLICT DO NOTHING;`
+    )
+      .then(result => res.json({ msg: 'disliked' }))
+      .catch(err => res.json(err));
   }
 };
 
 exports.editPrediction = (req, res) =>
-  db.query(
-    `UPDATE predictions text SET text='${
-      req.body.text
-    }', edited_on = '${new Date(
-      Date('dd/mm/yyyy:HH:MM')
-    ).toUTCString()}' WHERE id='${req.body.id}';`,
-    (error, results) => {
-      if (error) {
-        res.status(500).json({ msg: error });
-      }
-      res.status(200).json(results);
-    }
-  );
+  db
+    .query(
+      `UPDATE predictions text SET text='${
+        req.body.text
+      }', edited_on = '${new Date(
+        Date('dd/mm/yyyy:HH:MM')
+      ).toUTCString()}' WHERE id='${req.body.id}';`
+    )
+    .then(res.json({ msg: 'edited' }))
+    .catch(err => res.json({ err }));

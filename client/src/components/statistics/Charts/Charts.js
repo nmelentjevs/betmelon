@@ -72,13 +72,13 @@ const Charts = ({
                 ]}
               >
                 <g
-                  transform={`translate(${width > 700 ? 190 : 0}, ${
-                    width > 700 ? -105 : 250
+                  transform={`translate(${width > 700 ? 200 : 0}, ${
+                    width > 700 ? -80 : 250
                   })`}
                 >
                   <VictoryBar
                     name="bar"
-                    width={width > 700 ? 450 : 600}
+                    width={width > 700 ? 400 : 600}
                     standalone={false}
                     domainPadding={100}
                     style={{
@@ -101,7 +101,7 @@ const Charts = ({
                   />
                 </g>
                 <g
-                  transform={`translate(${width > 700 ? 0 : -20}, ${
+                  transform={`translate(${width > 700 ? 10 : -20}, ${
                     width > 700 ? -70 : 0
                   })`}
                 >
@@ -122,7 +122,7 @@ const Charts = ({
                 </g>
                 <g
                   transform={`translate(${width > 700 ? -10 : -20}, ${
-                    width > 700 ? 120 : 750
+                    width > 700 ? 150 : 750
                   })`}
                 >
                   <VictoryChart
@@ -143,7 +143,7 @@ const Charts = ({
                     />
                     <VictoryLegend
                       x={width > 700 ? 490 : 470}
-                      y={width > 700 ? -110 : -740}
+                      y={width > 700 ? -140 : -740}
                       title={`${username}'s`}
                       centerTitle
                       orientation="vertical"
@@ -186,7 +186,7 @@ const Charts = ({
                 </g>
                 <g
                   transform={`translate(${width > 700 ? 200 : 25}, ${
-                    width > 700 ? 190 : 550
+                    width > 700 ? 220 : 550
                   })`}
                 >
                   <VictoryChart

@@ -26,25 +26,33 @@
     padding: 10px;
   }
 
-  li {
+  a {
     position: relative;
     display: block;
     margin-bottom: 5px;
     padding: 10px;
     text-align: center;
-    text-transform: uppercase;
     animation: fadeIn 0.5s linear;
     animation-fill-mode: both;
   }
 
   &-win {
-    li {
+    h4 {
+      color: hotpink
+    }
+
+    a {
       border: 1px solid hotpink;
+
+      &:hover {
+        color: salmon !important;
+        text-decoration: none;
+      }
     }
 
     // Set delay per List Item
     @for $i from 1 through $total-items {
-      li:nth-child(#{$i}) {
+      a:nth-child(#{$i}) {
         animation-delay: .25s * $i;
       }
     }
@@ -53,12 +61,21 @@
   &-total {
     margin-top: 215px;
 
-    li {
+    h4 {
+      color: orange
+    }
+
+    a {
       border: 1px solid orange;
+
+      &:hover {
+        color: purple !important;
+        text-decoration: none;
+      }
     }
 
     @for $i from 1 through $total-items {
-      li:nth-child(#{$i}) {
+      a:nth-child(#{$i}) {
         animation-delay: .25s * $i + .5s;
       }
     }
@@ -67,26 +84,46 @@
   &-profit {
     margin-top: -75px;
 
-    li {
+    h4 {
+      color: purple
+    }
+
+    a {
       border: 1px solid purple;
+
+
+      &:hover {
+        color: orange !important;
+        text-decoration: none;
+      }
     }
 
     @for $i from 1 through $total-items {
-      li:nth-child(#{$i}) {
+      a:nth-child(#{$i}) {
         animation-delay: .25s * $i + 1s;
       }
     }
   }
 
+
   &-activity {
     margin-top: 140px;
 
-    li {
+    h4 {
+      color: salmon
+    }
+
+    a {
       border: 1px solid salmon;
+
+      &:hover {
+        color: hotpink !important;
+        text-decoration: none;
+      }
     }
 
     @for $i from 1 through $total-items {
-      li:nth-child(#{$i}) {
+      a:nth-child(#{$i}) {
         animation-delay: .25s * $i + 1.5s;
       }
     }

@@ -49,7 +49,7 @@ const Tree = memo(({ children, name, style, defaultOpen = false }) => {
   );
 });
 
-const BetTree = ({ username, match, betFromBets }) => {
+const BetTree = ({ username, mock, betFromBets }) => {
   const [bets, setBets] = useState([]);
 
   useEffect(() => {
@@ -158,10 +158,26 @@ const BetTree = ({ username, match, betFromBets }) => {
       .map((tree, i) => {
         return tree.map((t, i) => {
           return (
-            <Tree name={Object.keys(t)} key={i + Object.keys(t)}>
+            <Tree
+              name={Object.keys(t)}
+              key={i + Object.keys(t)}
+              defaultOpen={mock && Object.keys(t) == 'England'}
+            >
               {tree.map((t, i) => {
                 return (
                   <Tree
+                    defaultOpen={
+                      mock &&
+                      `${Object.keys(t[Object.keys(t)])} - W${
+                        t[Object.keys(t)][
+                          Object.keys(t[Object.keys(t)])
+                        ].bets.filter(b => b.result.match('^W')).length
+                      } - L${
+                        t[Object.keys(t)][
+                          Object.keys(t[Object.keys(t)])
+                        ].bets.filter(b => b.result.match('^L')).length
+                      }` == 'Premier League - W3 - L0'
+                    }
                     name={`${Object.keys(t[Object.keys(t)])} - W${
                       t[Object.keys(t)][
                         Object.keys(t[Object.keys(t)])

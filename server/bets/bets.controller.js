@@ -150,8 +150,8 @@ exports.deleteBet = (req, res) => {
       WHERE bets.id = ${id} AND 
       bets.username = '${username}';`
   )
-    .then(bets => {
-      console.log('Deleted');
+    .then(_ => {
+      res.send('Deleted');
     })
     .catch(err => {
       throw err;
