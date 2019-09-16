@@ -46,6 +46,7 @@ html {
 body {
   height: 100%;
   overflow: auto;
+  position: relative;
 }
 
 @import '~bootstrap/scss/bootstrap';

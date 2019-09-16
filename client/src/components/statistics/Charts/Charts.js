@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import ReactResizeDetector from 'react-resize-detector';
 
+import GlobalLoading from '../../common/GlobalLoading';
+
 import {
   VictoryBar,
   VictorySharedEvents,
@@ -31,7 +33,7 @@ const Charts = ({
       handleWidth
       handleHeight
       render={({ width, height }) => {
-        return (
+        return width ? (
           <>
             <svg viewBox={`0 0 550 ${width > 700 ? 600 : 1100}`}>
               <VictorySharedEvents
@@ -282,6 +284,10 @@ const Charts = ({
                 </g>
               </VictorySharedEvents>
             </svg>
+          </>
+        ) : (
+          <>
+            <GlobalLoading fullscreen={true} />
           </>
         );
       }}

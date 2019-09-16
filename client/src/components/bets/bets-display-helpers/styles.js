@@ -38,7 +38,7 @@ const Global = createGlobalStyle`
 
   @media only screen and (max-width: 768px) {
     #root {
-  padding: 0;
+    padding: 0;
   }
 }
 `;

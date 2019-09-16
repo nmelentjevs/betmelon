@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import Charts from './Charts';
 import Overall from './Overall';
 
+import GlobalLoading from '../../common/GlobalLoading';
+
 import Badge from 'react-bootstrap/Badge';
 import Tab from 'react-bootstrap/Tab';
 import Row from 'react-bootstrap/Row';
@@ -80,7 +82,7 @@ const ChartsBox = ({
                 </Tab.Pane>
               </Tab.Content>
             ) : (
-              'Loading'
+              <GlobalLoading fullscreen={true} />
             )}
           </Col>
         </Row>

@@ -6,11 +6,11 @@ const GlobalLoading = ({ fullscreen }) => (
   <div
     style={{
       width: '100%',
-      height: fullscreen ? '80vh' : '',
+      height: fullscreen ? '90vh' : '100%',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      flexDirection: 'row'
+      background: 'transparent'
     }}
   >
     <Spinner animation="grow" size="sm" />

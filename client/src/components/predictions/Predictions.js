@@ -44,16 +44,6 @@ const Predictions = props => {
   });
 
   useEffect(() => {
-    // if (props.match.params.filter.length > 1) {
-    //   getData(props.match.params.filter.replace(':', ''));
-    //   console.log('filter');
-    // } else {
-    //   console.log('non-filter');
-    //   getData();
-    // }
-  }, []);
-
-  useEffect(() => {
     getData(filter);
   }, [filter, filteredPredictions]);
 
