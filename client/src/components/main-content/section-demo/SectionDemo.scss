@@ -4,6 +4,7 @@
   align-items: flex-start;
   flex-direction: column;
 
+
   .span-control {
     color: red;
   }
@@ -39,4 +40,24 @@
     cursor: pointer;
     font-family: 'Montserrat', sans-serif;
   }
+
+}
+
+@media only screen and (max-width: 768px) {
+  .get-started{
+    line-height: 50px;
+
+    &--button {
+      background-color: rgb(34, 139, 34);
+      color: white;
+      border: none;
+      margin: 1rem 0 0 0;
+      padding: 1.25rem 2.75rem;
+      font-size: 1.15rem;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.5rem;
+    }
+  }
+  
 }

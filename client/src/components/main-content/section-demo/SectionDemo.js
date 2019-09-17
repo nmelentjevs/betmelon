@@ -13,7 +13,7 @@ const SectionDemo = () => (
       make <span className="span-luck">luck</span> a{' '}
       <span className="span-statistic">pattern</span>
     </p>
-    <button className="get-started--button">Get started &darr;</button>
+    <button className="get-started--button">Get started &rarr;</button>
   </section>
 );
 

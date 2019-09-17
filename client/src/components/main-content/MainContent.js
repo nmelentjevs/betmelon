@@ -33,7 +33,7 @@ const MainContent = ({ state }) => {
         <Jumbotron
           style={{
             width: '100%',
-            background: 'transparent'
+            background: 'transparent',
           }}
         >
           <SectionDemo />
@@ -79,7 +79,7 @@ const MainContent = ({ state }) => {
           </Col>
         </Row>
 
-        <Row style={{ marginTop: '50px' }}>
+        <Row className="row-mtt">
           <Col md={4} sm={12} className="text-center">
             <h4>Read and share predictions with other people</h4>
             <div className="prediction-mock">
@@ -117,7 +117,6 @@ const MainContent = ({ state }) => {
 
         <footer
           className="page-footer font-small special-color-dark pt-4 main-footer"
-          style={{ marginTop: '100px' }}
         >
           <ul
             className="list-unstyled list-inline text-center"

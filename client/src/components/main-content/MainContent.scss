@@ -5,6 +5,10 @@
     margin-bottom: 20px;
   }
 
+  .row-mtt {
+    margin-top: 50px
+       }
+
   @media only screen and (max-width: 768px) {
     .text-center {
       margin-top: 100px;
@@ -14,6 +18,9 @@
       margin-top: 40px;
     }
 
+    .row-mtt {
+      margin-top: 0px
+    }
   }
 }
 
@@ -138,6 +145,20 @@ a {
 .main-footer {
   background: transparent;
   width: 100%;
+  margin-top: 100px
+}
+
+@media only screen and (max-width: 768px) {
+  .main-footer {
+    background: transparent;
+    width: 100%;
+    margin-top: 0px;
+
+    .text-center:last-child{
+      margin-top: 0;
+    }
+  }
+
 }
 
 .testimonial-quote {
