@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import FameCard from './FameCard';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 
+// Styles
 import './HallOfFame.scss';
 
+// Components
+import FameCard from './FameCard';
 import FamePart from './FamePart';
-
-import axios from 'axios';
 import GlobalLoading from '../common/GlobalLoading';
 
 const HallOfFame = () => {
@@ -67,5 +69,7 @@ const HallOfFame = () => {
     <GlobalLoading />
   );
 };
+
+HallOfFame.propTypes = {};
 
 export default HallOfFame;

@@ -1,8 +1,13 @@
 import React from 'react';
 
-import Table from 'react-bootstrap/Table';
-import Bet from '../bet/Bet';
+import PropTypes from 'prop-types';
+
+// Styles
 import './BetTable.scss';
+// Bootstrap
+import Table from 'react-bootstrap/Table';
+// Components
+import Bet from '../bet/Bet';
 
 const BetDisplay = ({ bets, username, refreshBets }) => {
   const displayBets = () => {
@@ -20,6 +25,12 @@ const BetDisplay = ({ bets, username, refreshBets }) => {
     return betsArray;
   };
   return <>{displayBets()}</>;
+};
+
+BetDisplay.propTypes = {
+  bets: PropTypes.array,
+  username: PropTypes.string,
+  refreshBets: PropTypes.func
 };
 
 export default BetDisplay;

@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
-import BetDisplay from './bet-display/BetDisplay';
 
+import PropTypes from 'prop-types';
+
+// Helpers
+import { fields } from './betsHelpers';
+
+// Styles
 import './Bets.scss';
 
-import DatePicker from 'react-datepicker';
-
+// Bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Spinner from 'react-bootstrap/Spinner';
 
+// Components
 import Notification from '../common/Notification';
-
+import BetDisplay from './bet-display/BetDisplay';
 import BetTree from './BetTree';
 import FilterButton from '../common/FilterButton';
-
 import GlobalLoading from '../common/GlobalLoading';
 
 const Bets = ({ state: { state }, match, history }) => {
@@ -62,21 +66,6 @@ const Bets = ({ state: { state }, match, history }) => {
     e.preventDefault();
 
     const inputs = document.getElementsByTagName('input');
-    const fields = [
-      'home',
-      'away',
-      'country',
-      'league',
-      'match_date',
-      'bet',
-      'score',
-      'imaginary',
-      'odds',
-      'result',
-      'bet_amount',
-      'comments',
-      'anonymous'
-    ];
 
     const {
       user: { username }
@@ -526,6 +515,12 @@ const Bets = ({ state: { state }, match, history }) => {
       )}
     </div>
   );
+};
+
+Bets.propTypes = {
+  state: PropTypes.object,
+  match: PropTypes.object,
+  history: PropTypes.object
 };
 
 export default Bets;

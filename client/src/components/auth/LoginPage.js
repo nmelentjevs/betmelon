@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
-
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { UserContext } from '../../userContext';
 
 import axios from 'axios';
 
-import { UserContext } from '../../userContext';
+// Bootstreap
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+// Containers
 
 const LoginPage = ({ history }) => {
   const [user, setUser] = useState([]);
@@ -40,63 +41,73 @@ const LoginPage = ({ history }) => {
   };
 
   return (
-    <div style={{minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-    <UserContext.Consumer>
-      {({ state, authenticate }) => (
-        <Form onSubmit={e => handleSubmit(e, authenticate)} style={{width: '500px', marginBottom: '200px', color: 'white'}}>
-          <Form.Group>
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              name="username"
-              placeholder="Username"
-              onChange={e => handleOnChange(e)}
-              className={usernameError ? 'is-invalid' : ''}
-            />
-            <small
-              style={{ display: !usernameError ? 'none' : 'block' }}
-              id="passwordHelp"
-              className="text-danger"
-            >
-              User not found
-            </small>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label htmlFor="inputPassword">Password</Form.Label>
-            <Form.Control
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              onChange={e => handleOnChange(e)}
-              id="inputPassowrd"
-              className={passwordError ? 'is-invalid' : ''}
-            />
-            <small
-              style={{ display: !passwordError ? 'none' : 'block' }}
-              id="passwordHelp"
-              className="text-danger"
-            >
-              Incorrect Password
-            </small>
-            <Form.Text className="text-muted">
-              Passwords are encrypted
-            </Form.Text>
-          </Form.Group>
-          <Form.Group controlId="formBasicChecbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-          or
-          <Link to="/register">
-            <Button variant="warning" type="submit">
-              Register
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <UserContext.Consumer>
+        {({ state, authenticate }) => (
+          <Form
+            onSubmit={e => handleSubmit(e, authenticate)}
+            style={{ width: '500px', marginBottom: '200px', color: 'white' }}
+          >
+            <Form.Group>
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                placeholder="Username"
+                onChange={e => handleOnChange(e)}
+                className={usernameError ? 'is-invalid' : ''}
+              />
+              <small
+                style={{ display: !usernameError ? 'none' : 'block' }}
+                id="passwordHelp"
+                className="text-danger"
+              >
+                User not found
+              </small>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="inputPassword">Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                onChange={e => handleOnChange(e)}
+                id="inputPassowrd"
+                className={passwordError ? 'is-invalid' : ''}
+              />
+              <small
+                style={{ display: !passwordError ? 'none' : 'block' }}
+                id="passwordHelp"
+                className="text-danger"
+              >
+                Incorrect Password
+              </small>
+              <Form.Text className="text-muted">
+                Passwords are encrypted
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicChecbox">
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+            <Button variant="primary" type="submit">
+              Submit
             </Button>
-          </Link>
-        </Form>
-      )}
-    </UserContext.Consumer>
+            or
+            <Link to="/register">
+              <Button variant="warning" type="submit">
+                Register
+              </Button>
+            </Link>
+          </Form>
+        )}
+      </UserContext.Consumer>
     </div>
   );
 };

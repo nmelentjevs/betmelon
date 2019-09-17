@@ -1,6 +1,7 @@
 import React from 'react';
 
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 const FamePart = ({ data, users, FameCard, title, mock }) => (
   <ul>
@@ -31,5 +32,13 @@ const FamePart = ({ data, users, FameCard, title, mock }) => (
       ))}
   </ul>
 );
+
+FamePart.propTypes = {
+  data: PropTypes.string,
+  users: PropTypes.array,
+  FameCard: PropTypes.elementType,
+  title: PropTypes.string,
+  mock: PropTypes.bool
+};
 
 export default FamePart;

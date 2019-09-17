@@ -1,5 +1,7 @@
 import React from 'react';
 
+import moment from 'moment';
+
 import {
   VictoryBar,
   VictorySharedEvents,
@@ -14,9 +16,8 @@ import {
   VictoryLine
 } from 'victory';
 
+// Components
 import ProfitChart from './ProfitChart';
-
-import moment from 'moment';
 
 const Overall = ({ bets, datesFunction }) => (
   <div>

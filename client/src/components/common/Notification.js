@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-import Toast from 'react-bootstrap/Toast';
-
+// Styles
 import './Notification.scss';
+// Bootstrap
+import Toast from 'react-bootstrap/Toast';
 
 const Notification = ({ text, remove, i }) => {
   const [show, setShow] = useState(true);

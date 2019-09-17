@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import ReactResizeDetector from 'react-resize-detector';
 
-import GlobalLoading from '../../common/GlobalLoading';
-
 import {
   VictoryBar,
   VictorySharedEvents,
@@ -17,6 +15,8 @@ import {
   VictoryTooltip
 } from 'victory';
 
+// Components
+import GlobalLoading from '../../common/GlobalLoading';
 // import GraphTooltip from './GraphTooltip';
 
 const Charts = ({

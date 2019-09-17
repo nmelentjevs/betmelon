@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import PropTypes from 'prop-types';
+
+// Bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -197,6 +200,18 @@ const AddPrediction = ({
       </div>
     </Form>
   );
+};
+
+AddPrediction.propTypes = {
+  handleSubmit: PropTypes.func,
+  state: PropTypes.object,
+  handleOnChange: PropTypes.func,
+  country: PropTypes.array,
+  setCountry: PropTypes.func,
+  leagues: PropTypes.array,
+  setLeague: PropTypes.func,
+  displayLeague: PropTypes.func,
+  setAnonymous: PropTypes.func
 };
 
 export default AddPrediction;

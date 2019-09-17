@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
-import './Prediction.scss';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Moment from 'react-moment';
 
-import { Link } from 'react-router-dom';
+import { colors, countries, getColor } from './predictonHelper';
 
+// Styles
+import './Prediction.scss';
+
+// Bootstrap
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
@@ -26,45 +31,6 @@ const Prediction = ({ data, like, state, mock }) => {
   const changeDislikes = () => {
     data.disliked += 1;
     setDislikePost(true);
-  };
-
-  const colors = [
-    '#715aff',
-    '#f69dc5',
-    '#f9a951',
-    '#8c1a6a',
-    '#e84855',
-    '#4e937a',
-    '#d8cc34'
-  ];
-  // const colors = [
-  //   '#715aff',
-  //   '#4e937a',
-  //   '#002400',
-  //   '#05668d',
-  //   '#e84855',
-  //   '#8c1a6a',
-  //   '#d8cc34'
-  // ];
-  const countries = [
-    'England',
-    'Italy',
-    'Germany',
-    'France',
-    'Spain',
-    'Europe',
-    'National'
-  ];
-
-  const getColor = teamCountry => {
-    let color;
-    countries.map((country, i) => {
-      if (teamCountry === country) {
-        color = colors[i];
-      }
-      return;
-    });
-    return color;
   };
 
   return (
@@ -153,6 +119,13 @@ const Prediction = ({ data, like, state, mock }) => {
       </Card.Body>
     </Card>
   );
+};
+
+Prediction.propTypes = {
+  data: PropTypes.object,
+  state: PropTypes.object,
+  mock: PropTypes.bool,
+  like: PropTypes.func
 };
 
 export default Prediction;

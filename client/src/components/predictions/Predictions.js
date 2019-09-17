@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
-import Prediction from './Prediction/Prediction';
-
 import { useTrail, animated as a } from 'react-spring';
+import PropTypes from 'prop-types';
 
+// Helpers
+import { leagues, countries } from './predictionsHelper';
+import { centeredRow, centeredSpaceBetween } from '../common/CommonStyles';
+
+// Styles
 import './Predictions.scss';
 
-import GlobalLoading from '../common/GlobalLoading';
+// Context
+import { UserContext } from '../../userContext';
 
-// BOOTSTRAP
-
-import Button from 'react-bootstrap/Button';
-
-import AddPrediction from './AddPrediction/AddPrediction';
-import FilterButton from '../common/FilterButton';
-
-// PAGINATION
+// Pagination
 import ReactPaginate from 'react-paginate';
 
-import { UserContext } from '../../userContext';
+// Bootstrap
+import Button from 'react-bootstrap/Button';
+
+// Components
+import GlobalLoading from '../common/GlobalLoading';
+import Prediction from './Prediction/Prediction';
+import AddPrediction from './AddPrediction/AddPrediction';
+import FilterButton from '../common/FilterButton';
 
 const Predictions = props => {
   let [predictions, setPredictions] = useState([]);
@@ -77,26 +83,6 @@ const Predictions = props => {
       })
       .catch(err => console.log(err));
   };
-
-  const leagues = [
-    ['Premier League', 'Championship', 'EFL Cup', 'FA Cup'],
-    ['Ligue 1', 'Ligue 2', 'Coupe de la Ligue'],
-    ['La Liga', 'Segunda Division', 'Copa Del Rey'],
-    ['Bundesliga', '2. Bundesliga', 'DFB Pokal'],
-    ['Seria A', 'Seria B', 'Coppa Italia'],
-    ['Champions League', 'Europa League'],
-    ['World Cup', 'Europe Cup', 'Copa America']
-  ];
-
-  const countries = [
-    'England',
-    'France',
-    'Spain',
-    'Germany',
-    'Italy',
-    'Europe',
-    'National'
-  ];
 
   const displayLeague = country => {
     return countries.map((c, index) => {
@@ -219,13 +205,7 @@ const Predictions = props => {
           </div>
         ) : (
           <div className="mt-4 predictions-section">
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexDirection: 'row'
-              }}
-            >
+            <div style={centeredSpaceBetween}>
               <FilterButton
                 setFilter={setFilter}
                 countries={countries}
@@ -257,17 +237,7 @@ const Predictions = props => {
               <></>
             )}
 
-            {
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexDirection: 'row'
-                }}
-              >
-                {paginationElement}
-              </div>
-            }
+            {<div style={centeredRow}>{paginationElement}</div>}
             {paginationTrail
               .sort((a, b) => a.id - b.id)
               .map(({ x, height, ...rest }, index) => (
@@ -288,22 +258,16 @@ const Predictions = props => {
                 </a.div>
               ))}
 
-            {
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  flexDirection: 'row'
-                }}
-              >
-                {paginationElement}
-              </div>
-            }
+            {<div style={centeredRow}>{paginationElement}</div>}
           </div>
         )
       }
     </UserContext.Consumer>
   );
+};
+
+Predictions.propTypes = {
+  props: PropTypes.object
 };
 
 export default Predictions;

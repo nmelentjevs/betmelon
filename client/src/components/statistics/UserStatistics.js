@@ -2,12 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import axios from 'axios';
 
-import './UserStatistics.scss';
-
-import ChartsBox from './Charts/ChartsBox';
-import StatBox from './Charts/StatBox';
-import ByWinPercentage from './Charts/ByWinPercentage';
-
 import {
   statLeague,
   statCountry,
@@ -15,6 +9,14 @@ import {
   statOdds,
   statDates
 } from './helper-statistics';
+
+// Styles
+import './UserStatistics.scss';
+
+// Components
+import ChartsBox from './Charts/ChartsBox';
+import StatBox from './Charts/StatBox';
+import ByWinPercentage from './Charts/ByWinPercentage';
 
 const UserStatistics = ({ state: { state }, match }) => {
   const [bets, setBets] = useState([]);

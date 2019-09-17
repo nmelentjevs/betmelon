@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Header.scss';
 
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+// Styles
+import './Header.scss';
+// Bootstrap
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
@@ -137,6 +141,12 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
     //   )}
     // </header>
   );
+};
+
+Header.propTypes = {
+  state: PropTypes.object,
+  setUserFromLocal: PropTypes.func,
+  logout: PropTypes.func
 };
 
 export default Header;

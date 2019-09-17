@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 const Thanks = ({
   match: {
@@ -15,6 +16,10 @@ const Thanks = ({
   }, [id]);
 
   return <div>{id} Thanks</div>;
+};
+
+Thanks.propTypes = {
+  id: PropTypes.string
 };
 
 export default Thanks;

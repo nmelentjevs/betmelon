@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 
-import Charts from './Charts';
-import Overall from './Overall';
-
-import GlobalLoading from '../../common/GlobalLoading';
-
+// Bootstrap
 import Badge from 'react-bootstrap/Badge';
 import Tab from 'react-bootstrap/Tab';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
+
+// Components
+import GlobalLoading from '../../common/GlobalLoading';
 import SliderPage from '../../common/Slider';
+import Charts from './Charts';
+import Overall from './Overall';
 
 const ChartsBox = ({
   statCountry,

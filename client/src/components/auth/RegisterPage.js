@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+
+import axios from 'axios';
+
+// Bootstrap
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+// Containers
 
 const RegisterPage = ({ history }) => {
   const [user, setUser] = useState([]);
@@ -21,6 +25,8 @@ const RegisterPage = ({ history }) => {
       .then(res =>
         res.data.msg === 'Success'
           ? history.push('/login')
+          : res.data.msg === 'User Exists'
+          ? console.log('User Exists')
           : console.log('Something went wrong')
       )
       .then(err => console.log(err));
@@ -32,8 +38,18 @@ const RegisterPage = ({ history }) => {
   };
 
   return (
-    <div style={{minHeight: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-      <Form onSubmit={e => handleSubmit(e)} style={{width: '500px', marginBottom: '200px', color: 'white'}}>
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
+      <Form
+        onSubmit={e => handleSubmit(e)}
+        style={{ width: '500px', marginBottom: '200px', color: 'white' }}
+      >
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

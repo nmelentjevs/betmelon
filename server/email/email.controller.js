@@ -10,6 +10,7 @@ const templates = require('./email.templates');
 
 // The callback that is invoked when the user submits the form on the client.
 exports.collectEmail = (req, res) => {
+  console.log(req.body);
   const newUUID = uuidv4();
 
   let { name, username, email, password, rpassword } = req.body;
@@ -18,56 +19,48 @@ exports.collectEmail = (req, res) => {
 
   if (password === rpassword) {
     bcrypt.hash(password, 10, async (err, hash) => {
-      db.query(
-        `SELECT * FROM users WHERE email = '${email}'`,
-        (error, results) => {
-          if (error) {
-            res.status(500).json({ msg: error });
-          } else if (results.rows.length === 0) {
+      db.query(`SELECT * FROM users WHERE email = '${email}'`)
+        .then(results => {
+          if (results.length === 0) {
             db.query(
               `INSERT INTO users(name, username, email, registered_on, confirmed, uuid, password) VALUES ('${name}', '${username}', '${email}', '${new Date(
                 Date('dd/mm/yyyy:HH:MM')
-              ).toUTCString()}', '0', '${newUUID}', '${hash}')`,
-              (error, results) => {
-                if (error) {
-                  res.status(500).json({ msg: error });
-                }
-                res.status(200).json({ msg: 'Success' });
-              }
-            );
-            sendEmail(email, templates.confirm(newUUID));
+              ).toUTCString()}', '0', '${newUUID}', '${hash}')`
+            )
+              .then(_ => {
+                sendEmail(email, templates.confirm(newUUID));
+                res.json({ msg: 'Success' });
+              })
+              .catch(err => res.status(500).json({ msg: err }));
           } else {
-            res.status(200).json({ msg: 'User exists' });
+            res.json({ msg: 'User Exists' });
           }
-        }
-      );
+        })
+        .catch(err => res.send({ msg: err }));
     });
   }
 };
-
 // The callback that is invoked when the user visits the confirmation
 // url on the client and a fetch request is sent in componentDidMount.
 exports.confirmEmail = (req, res) => {
   const { id } = req.params;
+  console.log(id);
 
-  db.query(
-    `SELECT * FROM users WHERE uuid = '${id}' AND confirmed = '0'`,
-    (error, results) => {
-      if (error) {
-        res.status(500).json({ msg: error });
-      } else if (results.rows.length === 0) {
-        res.status(200).json({ msg: msgs.resend });
+  db.query(`SELECT * FROM users WHERE uuid = '${id}' AND confirmed = 'false'`)
+    .then(results => {
+      console.log(results);
+      if (results.length === 0) {
+        res.json({ msg: msgs.resend });
       } else {
-        res.status(200).json({ msg: msgs.confirmed });
-        db.query(`UPDATE users SET confirmed = '1' WHERE uuid = '${id}'`),
-          (error, results) => {
-            if (error) {
-              res.status(500).json({ msg: error });
-            } else {
-              res.status(200);
-            }
-          };
+        res.json({ msg: msgs.confirmed });
+        db.query(`UPDATE users SET confirmed = 'true' WHERE uuid = '${id}'`)
+          .then(_ => {
+            res.json({ msg: 'Confirmed' });
+          })
+          .catch(err => res.json({ msg: err }));
       }
-    }
-  );
+    })
+    .catch(err => {
+      res.json({ msg: err });
+    });
 };

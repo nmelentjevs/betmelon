@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Bootstrap
 import Spinner from 'react-bootstrap/Spinner';
 
 const GlobalLoading = ({ fullscreen }) => (

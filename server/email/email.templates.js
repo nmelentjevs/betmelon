@@ -7,10 +7,10 @@ module.exports = {
   confirm: id => ({
     subject: 'Welcome to Betsheets',
     html: `
-      <a href='http://localhost:3050/api/email/confirm/${id}'>
+      <a href='http://localhost:3050/email/confirm/${id}'>
         click to confirm email
       </a>
     `,
-    text: `Copy and paste this link: 'http://localhost:3050/api/email/confirm/${id}'`
+    text: `Copy and paste this link: 'http://localhost:3050/email/confirm/${id}'`
   })
 };

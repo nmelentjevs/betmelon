@@ -1,6 +1,11 @@
 import React, { memo, useState, useEffect } from 'react';
 
 import axios from 'axios';
+import moment from 'moment';
+
+import PropTypes from 'prop-types';
+
+// Animation Sprting
 import { useSpring, a } from 'react-spring';
 import { useMeasure, usePrevious } from './bets-display-helpers/helpers';
 import {
@@ -12,9 +17,8 @@ import {
 } from './bets-display-helpers/styles';
 import * as Icons from './bets-display-helpers/icons';
 
+// Components
 import Bet from './bet/Bet';
-
-import moment from 'moment';
 
 const Tree = memo(({ children, name, style, defaultOpen = false }) => {
   const [isOpen, setOpen] = useState(defaultOpen);
@@ -97,7 +101,7 @@ const BetTree = ({ username, mock, betFromBets }) => {
 
     let sortedCountries = [];
     betOnCountryAmount.map(b => {
-      sortedCountries.push(b.x);
+      return sortedCountries.push(b.x);
     });
 
     let tree = [];
@@ -106,17 +110,18 @@ const BetTree = ({ username, mock, betFromBets }) => {
         ...tree,
         { [bet.country.replace(' ', '')]: { [bet.league]: { bets: [] } } }
       ];
-      return;
+      return '';
     });
 
     tree.map(tre => {
       data.map(bet => {
         if (bet.country.toString() === Object.keys(tre).toString()) {
           if (Object.keys(tre[bet.country])[0].toString() === bet.league) {
-            tre[bet.country][bet.league].bets.push(bet);
+            return tre[bet.country][bet.league].bets.push(bet);
           }
         }
       });
+      return '';
     });
 
     const result = tree.reduce((unique, o) => {
@@ -239,6 +244,12 @@ const BetTree = ({ username, mock, betFromBets }) => {
       )}
     </>
   );
+};
+
+BetTree.propTypes = {
+  username: PropTypes.string,
+  betsFromBets: PropTypes.array,
+  mock: PropTypes.bool
 };
 
 export default BetTree;

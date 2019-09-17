@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
+import axios from 'axios';
+
+import PropTypes from 'prop-types';
+
+// Styles
+import './BetRow.scss';
+
+// Boostrap
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-import './BetRow.scss';
-
-import axios from 'axios';
 
 const Bet = ({ bet, username, refreshBets, bg, text }) => {
   let [edit, setEdit] = useState(false);
@@ -257,6 +261,14 @@ const Bet = ({ bet, username, refreshBets, bg, text }) => {
       </Card.Footer> */}
     </Card>
   );
+};
+
+Bet.propTypes = {
+  bet: PropTypes.object,
+  username: PropTypes.string,
+  refreshBets: PropTypes.func,
+  bg: PropTypes.string,
+  text: PropTypes.string
 };
 
 export default Bet;

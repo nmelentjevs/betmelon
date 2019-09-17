@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const FameCard = ({ data, username, mock, color }) => (
   <Link
@@ -21,5 +22,11 @@ const FameCard = ({ data, username, mock, color }) => (
     <div className="transition-bar"> </div>
   </Link>
 );
+
+FameCard.propTypes = {
+  data: PropTypes.string,
+  username: PropTypes.string,
+  mock: PropTypes.bool
+};
 
 export default FameCard;
