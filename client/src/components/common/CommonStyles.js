@@ -10,4 +10,14 @@ const centeredRow = {
   flexDirection: 'row'
 };
 
-export { centeredSpaceBetween, centeredRow };
+const centeredFullWidthRow = {
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  fontSize: '1.2rem',
+  marginTop: '20px'
+};
+
+export { centeredSpaceBetween, centeredRow, centeredFullWidthRow };

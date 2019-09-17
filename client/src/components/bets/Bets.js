@@ -4,6 +4,9 @@ import axios from 'axios';
 
 import PropTypes from 'prop-types';
 
+// Styles
+import { centeredFullWidthRow } from '../common/CommonStyles';
+
 // Helpers
 import { fields } from './betsHelpers';
 
@@ -510,8 +513,28 @@ const Bets = ({ state: { state }, match, history }) => {
         //   username={match.params.username}
         // />
         <BetTree username={match.params.username} betFromBets={bets} />
+      ) : !show ? (
+        <>
+          <div style={centeredFullWidthRow}>No bets available</div>
+          <div style={centeredFullWidthRow}>
+            Please press the{' '}
+            <Button
+              variant="outline-primary"
+              onClick={() => toggleShow(!show)}
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                margin: '5px'
+              }}
+            >
+              {!show ? 'ADD ' : 'CLOSE '}
+            </Button>{' '}
+            button to start
+          </div>
+        </>
       ) : (
-        <div>No bets available</div>
+        ''
       )}
     </div>
   );

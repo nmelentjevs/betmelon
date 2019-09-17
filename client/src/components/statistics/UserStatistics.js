@@ -60,6 +60,7 @@ const UserStatistics = ({ state: { state }, match }) => {
         statDates={statDates}
         bets={bets}
         username={match.params.username}
+        loading={loading}
       />
     </div>
   );

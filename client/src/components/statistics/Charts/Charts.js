@@ -28,6 +28,7 @@ const Charts = ({
   bets,
   username
 }) => {
+  console.log(resultFunction(bets, type));
   return (
     <ReactResizeDetector
       handleWidth
@@ -142,7 +143,7 @@ const Charts = ({
                       }
                     />
                     <VictoryLegend
-                      x={width > 700 ? 490 : 470}
+                      x={width > 700 ? 480 : 470}
                       y={width > 700 ? -140 : -740}
                       title={`${username}'s`}
                       centerTitle

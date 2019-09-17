@@ -43,9 +43,9 @@ const MainContent = ({ state }) => {
       <br />
       <Container style={{}}>
         <Row>
-          <Col md={4} sm={12} style={{ marginTop: '20px' }}>
+          <Col md={4} sm={12} style={{ marginTop: '20px' }}  className="text-center">
             <h4>Store all your bets in one place</h4>
-            <div className="tree-wrapper">
+            <div className="tree-wrapper"  className="text-left">
               <BetsTree username={'test'} betFromBets={mockData} mock={true} />
             </div>
           </Col>
@@ -56,7 +56,7 @@ const MainContent = ({ state }) => {
             style={{ marginTop: '20px' }}
           >
             {' '}
-            <h4>Extract statistics and useful metrics</h4>
+            <h4 className="mtt">Extract statistics and useful metrics</h4>
             <SampleGraph bets={mockData} statFunction={statCountry} />
           </Col>
           <Col
@@ -66,7 +66,7 @@ const MainContent = ({ state }) => {
             style={{ marginTop: '20px' }}
           >
             {' '}
-            <h4>See most successful betters</h4>
+            <h4 className="mtt">See most successful betters</h4>
             <div className="mock-ratio-section mock-ratio-section-win">
               <FamePart
                 data="win_ratio"
@@ -92,7 +92,7 @@ const MainContent = ({ state }) => {
               <SampleProfit />
             </div>
           </Col>
-          <Col md={4} sm={12} className="text-center">
+          <Col className="mbb" md={4} sm={12} className="text-center">
             <h4>Improve your betting patterns and increase net leverage</h4>
             <div className="testimonial-quote group right">
               <div className="quote-img">

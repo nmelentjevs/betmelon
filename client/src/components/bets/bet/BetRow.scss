@@ -1,5 +1,5 @@
 .bets-section {
-  min-height: 100vh;
+  min-height: 90vh;
 
   input {
     display: inline-block;
@@ -7,6 +7,13 @@
     margin: 0;
     width: 100%;
   }
+
+  .form-check-input {
+    margin-top: .3rem;
+    margin-left: -1.25rem;
+  }
+
+
 
   .edit-save {
     cursor: pointer;

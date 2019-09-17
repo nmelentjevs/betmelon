@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+import PropTypes from 'prop-types';
+
+// Styles
+
+import { centeredFullWidthRow } from '../../common/CommonStyles';
+
 // Bootstrap
 import Badge from 'react-bootstrap/Badge';
 import Tab from 'react-bootstrap/Tab';
@@ -20,7 +26,8 @@ const ChartsBox = ({
   statResult,
   statDates,
   bets,
-  username
+  username,
+  loading
 }) => {
   const [type, setType] = useState('country');
   return (
@@ -52,7 +59,7 @@ const ChartsBox = ({
             </ListGroup>
           </Col>
           <Col sm={12} lg={10}>
-            {bets.length > 0 ? (
+            {bets.length > 0 && !loading ? (
               <Tab.Content>
                 <Tab.Pane eventKey="#country">
                   <Charts
@@ -69,9 +76,9 @@ const ChartsBox = ({
                     type={type}
                     statFunction={statLeague}
                     resultFunction={statResult}
-                    username={username}
                     oddsFunction={statOdds}
                     bets={bets}
+                    username={username}
                   />
                 </Tab.Pane>
                 <Tab.Pane eventKey="#overall">
@@ -82,6 +89,15 @@ const ChartsBox = ({
                   />
                 </Tab.Pane>
               </Tab.Content>
+            ) : bets.length === 0 && !loading ? (
+              <>
+                <div style={centeredFullWidthRow}>
+                  Please add bets first to see statistics
+                </div>
+                <div style={centeredFullWidthRow}>
+                  Graphs are hungry and sad without any information to feed :(
+                </div>
+              </>
             ) : (
               <GlobalLoading fullscreen={true} />
             )}
@@ -90,6 +106,17 @@ const ChartsBox = ({
       </Tab.Container>
     </div>
   );
+};
+
+ChartsBox.propTypes = {
+  statCountry: PropTypes.func,
+  statOdds: PropTypes.func,
+  statLeague: PropTypes.func,
+  statResult: PropTypes.func,
+  statDates: PropTypes.func,
+  bets: PropTypes.array,
+  username: PropTypes.string,
+  loading: PropTypes.bool
 };
 
 export default ChartsBox;
