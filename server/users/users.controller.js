@@ -1,5 +1,7 @@
 const db = require('../db/psqldb');
 
+const jwt = require('jsonwebtoken');
+
 const { redisClient, redisPublisher } = require('../redis/redis');
 
 const bcrypt = require('bcryptjs');
@@ -29,7 +31,15 @@ exports.getAll = (req, res) => {
             name: results[0].name,
             email: results[0].email,
             username: results[0].username.replace(/\s/g, ''),
-            sheet_id: results[0].sheet_id
+            registered_on: results[0].registered_on,
+            confirmed: results[0].confirmed,
+            win_ratio: results[0].win_ratio,
+            total_bets: results[0].total_bets,
+            total_wins: results[0].total_wins,
+            total_loses: results[0].total_loses,
+            privacy_predictions: results[0].privacy_predictions,
+            privacy_bets: results[0].privacy_bets,
+            privacy_profile: results[0].privacy_profile
           }
         });
       })
@@ -73,12 +83,15 @@ exports.login = (req, res) => {
               const user = {
                 name: results[0].name,
                 email: results[0].email,
-                username: results[0].username.replace(/\s/g, ''),
-                sheet_id: results[0].sheet_id
+                username: results[0].username.replace(/\s/g, '')
               };
-              res.json({
-                login: true,
-                user
+              jwt.sign({ user }, 'betmelon', (err, token) => {
+                console.log(token);
+                res.json({
+                  login: true,
+                  user,
+                  token
+                });
               });
               redisClient.setex('username', 10000, user.username);
               redisPublisher.publish('insert', 'username');
@@ -100,6 +113,19 @@ exports.login = (req, res) => {
   // });
 };
 
+exports.verifyToken = (req, res, next) => {
+  // Get auth header value
+  const bearerHeader = req.body.token;
+  // Check if bearer is undefined
+  if (typeof bearerHeader !== 'undefined') {
+    next();
+  } else {
+    // Forbidden
+    console.log('error');
+    res.json({ msg: 'Unathorized' });
+  }
+};
+
 exports.setUserFromLocal = (req, res) => {
   const { username } = req.body;
 
@@ -109,8 +135,7 @@ exports.setUserFromLocal = (req, res) => {
         user: {
           name: results[0].name,
           email: results[0].email,
-          username: results[0].username.replace(/\s/g, ''),
-          sheet_id: results[0].sheet_id
+          username: results[0].username.replace(/\s/g, '')
         }
       })
     )
@@ -122,4 +147,32 @@ exports.getCurrentUser = (req, res) => {
     console.log(values);
     res.send(values);
   });
+};
+
+exports.updateSettings = (req, res) => {
+  const { username } = req.params;
+  const {
+    initialSettings: { predictions, bets, profile }
+  } = req.body;
+
+  console.log(req.params);
+  console.log(req.body);
+
+  db.query(
+    `UPDATE users SET 
+    privacy_predictions=${predictions}, 
+    privacy_bets=${bets}, 
+    privacy_profile=${profile} 
+    WHERE username = '${username}'`
+  )
+    .then(_ =>
+      res.send({
+        msg: 'updated'
+      })
+    )
+    .catch(err =>
+      res.send({
+        msg: err
+      })
+    );
 };

@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3001;
 
+const jwt = require('jsonwebtoken');
+
 const emailController = require('./email/email.controller');
 const authController = require('./users/users.controller');
 const preditionController = require('./predictions/predictions.controller');
@@ -36,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/bets/loadbets/:username', betsController.getBets);
+app.get('/bets/loadbets/:username/:current/:action', betsController.getBets);
 
 app.post('/bets/addbet/', betsController.addBet);
 
@@ -56,12 +58,23 @@ app.get('/users/all/:id', authController.getAll);
 
 app.post('/users/add', authController.addUser, emailController.collectEmail);
 
+app.post('/users/update/:username', authController.updateSettings);
+
 app.post('/users/login', authController.login);
 
 app.get('/users/current', authController.getCurrentUser);
 
-app.post('/users/localuser', async (req, res) => {
-  authController.setUserFromLocal(req, res);
+app.post('/users/localuser', authController.verifyToken, async (req, res) => {
+  jwt.verify(req.body.token, 'betmelon', (err, user) => {
+    if (err) {
+      res.send({ msg: 'Unathorized' });
+    } else {
+      res.json({
+        message: 'Authorized',
+        user
+      });
+    }
+  });
 });
 
 app.delete('/predictions/comments', (req, res) =>

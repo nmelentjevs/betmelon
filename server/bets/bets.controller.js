@@ -32,13 +32,13 @@ exports.addBet = (req, res) => {
         `SELECT COUNT(*) FROM bets WHERE username='${username}' AND result ~ '^L'`
       ),
       t.any(`SELECT COUNT(*) FROM bets WHERE username='${username}'`),
-      t.any('SELECT * FROM bets;')
+      t.any(`SELECT * FROM bets WHERE username='${username}'`)
     ]);
   })
     .then(data => {
       const total_wins = data[1][0].count;
       const total_bets = data[3][0].count;
-      const bets = data[4][0];
+      const bets = data[4];
       db.tx(t => {
         const win_ratio = (total_wins / total_bets).toFixed(3);
         console.log(win_ratio);
@@ -54,56 +54,104 @@ exports.addBet = (req, res) => {
           )
         ]);
       })
-        .then(data => console.log(data))
+        .then(_ => {
+          console.log(bets);
+        })
         .catch(err => console.log(err));
+      console.log(bets);
       res.json({ bets });
     })
-    .catch(error => {
-      console.log(error); // print error;
+    .catch(_ => {
+      res.json({ msg: 'Please fill the fields correcly' });
     });
 };
 
 exports.getBets = async (req, res) => {
   let username;
+  const { action } = req.params;
+  const { current } = req.params;
+  console.log(req.params);
   if (req.params.username) {
     username = req.params.username;
   } else {
     username = req.body.username;
   }
-  // redisClient.get('bets', async (err, values) => {
-  //   if (values && action !== 'false') {
-  //     console.log('Got from cache');
-  //     res.send(JSON.parse(values));
-  //   } else {
-  console.log('Got from psql');
+  redisClient.get('bets', async (err, values) => {
+    if (values && action === 'false' && username === current) {
+      console.log('Got from cache');
+      res.send({ bets: JSON.parse(values) });
+    } else {
+      console.log('Got from psql');
 
-  // psql.tx
+      // psql.tx
 
-  await db
-    .query(
-      `SELECT bets.username, bets.home, bets.away, bets.country, bets.league, bets.match_date, bets.bet, bets.bet_type, bets.score, bets.imaginary, bets.odds, bets.result, bets.bet_amount, bets.comments, bets.is_prediction, bets.date_added, bets.id FROM bets WHERE bets.username = '${username}';
+      await db
+        .tx(t => {
+          return t.batch([
+            t.any(
+              `SELECT bets.username, 
+          bets.home, 
+          bets.away, 
+          bets.country, 
+          bets.league, 
+          bets.match_date, 
+          bets.bet, 
+          bets.bet_type, 
+          bets.score, 
+          bets.imaginary, 
+          bets.odds, 
+          bets.result, 
+          bets.bet_amount, 
+          bets.comments, 
+          bets.is_prediction, 
+          bets.date_added, 
+          bets.id 
+          FROM bets WHERE bets.username = '${username}';
       `
-    )
-    .then(bets => {
-      // redisClient.setex('bets', 60, JSON.stringify(bets.rows));
-      bets.map(bet => {
-        bet.teams = `${bet.home} vs ${bet.away}`;
-      });
-      res.send({
-        bets: bets.map(bet => {
-          delete bet.home;
-          delete bet.away;
-          return bet;
+            ),
+            t.any(`SELECT privacy_bets FROM users WHERE username='${username}'`)
+          ]);
         })
-      });
-    })
-    .catch(err => console.log(err));
-  // }
-  // });
+        .then(bets => {
+          console.log(bets[1]);
+
+          if (current === username) {
+            redisClient.setex('bets', 60, JSON.stringify(bets[0]));
+            bets[0].map(bet => {
+              bet.teams = `${bet.home} vs ${bet.away}`;
+            });
+            res.send({
+              bets: bets[0].map(bet => {
+                delete bet.home;
+                delete bet.away;
+                return bet;
+              })
+            });
+          } else {
+            if (!bets[1][0].privacy_bets) {
+              bets[0].map(bet => {
+                bet.teams = `${bet.home} vs ${bet.away}`;
+              });
+              res.send({
+                bets: bets[0].map(bet => {
+                  delete bet.home;
+                  delete bet.away;
+                  return bet;
+                })
+              });
+            } else {
+              res.json({
+                msg: 'This user has restricted access to his betting statistic'
+              });
+            }
+          }
+        })
+        .catch(err => console.log(err));
+    }
+  });
 };
 
 exports.editBet = (req, res) => {
-  console.log(req.body);
   const { id } = req.body;
   const {
     teams,
@@ -135,7 +183,7 @@ exports.editBet = (req, res) => {
     comments='${comments}' WHERE bets.id = ${id};`
   )
     .then(bets => {
-      console.log('Update');
+      res.json({ msg: 'Updated' });
     })
     .catch(err => {
       throw err;

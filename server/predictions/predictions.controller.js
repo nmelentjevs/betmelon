@@ -31,7 +31,7 @@ exports.getPredictions = async (req, res, next) => {
   console.log(req.params);
 
   redisClient.get('predictions', async (err, values) => {
-    if (values && action !== 'false' && filter !== 'all') {
+    if (values && action === 'false' && filter === 'all') {
       console.log('Got from cache');
       res.send(JSON.parse(values));
     } else {
@@ -154,7 +154,7 @@ exports.getPredictions = async (req, res, next) => {
             }
           }
 
-          // redisClient.setex('predictions', 60, JSON.stringify(predictions));
+          redisClient.setex('predictions', 60, JSON.stringify(predictions));
           res.json(output);
         })
         .catch(err => console.log(err));
