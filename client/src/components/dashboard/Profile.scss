@@ -1,0 +1,64 @@
+.profile-section {
+
+  .nav-link.active {
+    background: #6f42c1;
+    color: white !important;
+    border-color: #6f42c1 !important;
+  }
+
+
+  input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+
+  input:checked+label {
+    background: #6f42c1;
+  }
+
+  input:checked+label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+
+}
+
+.purple-border {
+  border-color: #6f42c1 !important;
+  color: white !important;
+
+  &:hover {
+    background: #6f42c1;
+    color: white !important;
+
+  }
+}
+
+.background-none {
+  background: transparent;
+}

@@ -33,7 +33,7 @@ const MainContent = ({ state }) => {
         <Jumbotron
           style={{
             width: '100%',
-            background: 'transparent',
+            background: 'transparent'
           }}
         >
           <SectionDemo />
@@ -43,9 +43,14 @@ const MainContent = ({ state }) => {
       <br />
       <Container style={{}}>
         <Row>
-          <Col md={4} sm={12} style={{ marginTop: '20px' }}  className="text-center">
+          <Col
+            md={4}
+            sm={12}
+            style={{ marginTop: '20px' }}
+            className="text-center"
+          >
             <h4>Store all your bets in one place</h4>
-            <div className="tree-wrapper"  className="text-left">
+            <div className="tree-wrapper" className="text-left">
               <BetsTree username={'test'} betFromBets={mockData} mock={true} />
             </div>
           </Col>
@@ -106,7 +111,7 @@ const MainContent = ({ state }) => {
               <div className="quote-quote">
                 <blockquote>
                   <p>
-                    Overall, fantastic! I'd recommend them to anyone looking to
+                    Overall, fantastic! I'd recommend this to anyone looking to
                     improve their betting returns."
                   </p>
                 </blockquote>
@@ -115,9 +120,7 @@ const MainContent = ({ state }) => {
           </Col>
         </Row>
 
-        <footer
-          className="page-footer font-small special-color-dark pt-4 main-footer"
-        >
+        <footer className="page-footer font-small special-color-dark pt-4 main-footer">
           <ul
             className="list-unstyled list-inline text-center"
             style={{ fontSize: '1.6rem' }}

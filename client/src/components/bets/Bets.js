@@ -26,6 +26,7 @@ import BetDisplay from './bet-display/BetDisplay';
 import BetTree from './BetTree';
 import FilterButton from '../common/FilterButton';
 import GlobalLoading from '../common/GlobalLoading';
+import PrettyButton from '../common/PrettyButton';
 
 const Bets = ({ state: { state }, match, history }) => {
   let [filter, setFilter] = useState('');
@@ -37,26 +38,39 @@ const Bets = ({ state: { state }, match, history }) => {
 
   let [notifications, setNotifications] = useState([]);
 
+  const [restrictedAccess, setRestrictedAccess] = useState(false);
+
   useEffect(() => {
     if (state.isAuthenticated) {
       setLoading(true);
-      refreshBets();
+      refreshBets(false);
     }
   }, []);
 
   useEffect(() => {}, [bets, setBets, notifications, setNotifications]);
 
-  const refreshBets = () => {
+  const refreshBets = added => {
     const { username } = match.params;
     axios
-      .get(`/api/bets/loadbets/${username}`)
+      .get(
+        `/api/bets/loadbets/${username}/${state.user.username}/${
+          added ? 'added' : 'false'
+        }`
+      )
       .then(res => {
         console.log(res.data);
         setLoading(false);
         if (res.data.msg !== 'No entries found') {
-          if (res.data.bets.length !== 0) {
-            console.log(res.data.bets);
-            setBets(res.data.bets);
+          if (
+            res.data.msg ===
+            'This user has restricted access to his betting statistic'
+          ) {
+            setRestrictedAccess(true);
+          } else {
+            if (res.data.bets.length !== 0) {
+              console.log(res.data.bets);
+              setBets(res.data.bets);
+            }
           }
         }
       })
@@ -64,8 +78,6 @@ const Bets = ({ state: { state }, match, history }) => {
   };
 
   const addBet = e => {
-    notify('Bet added successfully!');
-    handleClick();
     e.preventDefault();
 
     const inputs = document.getElementsByTagName('input');
@@ -87,9 +99,20 @@ const Bets = ({ state: { state }, match, history }) => {
     axios
       .post(`/api/bets/addbet/`, { betObj, username })
       .then(res => {
-        setBets(res.data.bets);
-        setTimeout(() => setAdded(true), 1000);
-        setTimeout(() => refreshBets(), 100);
+        console.log(res.data.msg);
+        if (
+          (typeof res.data.bets !== 'undefined' &&
+            typeof res.data.msg === 'undefined') ||
+          !res.data.msg === 'Please fill the fields correcly'
+        ) {
+          notify('Bet added successfully!');
+          handleClick();
+          setBets(res.data.bets);
+          setTimeout(() => setAdded(true), 1000);
+          setTimeout(() => refreshBets(true), 100);
+        } else {
+          notify('Incorrect fields');
+        }
       })
       .catch(err => console.log(err));
   };
@@ -111,7 +134,12 @@ const Bets = ({ state: { state }, match, history }) => {
   const displayNotifications = () => {
     return notifications.map((notification, i) => (
       <div key={i}>
-        <Notification text={notification} remove={remove} i={i} />
+        <Notification
+          text={notification}
+          remove={remove}
+          i={i}
+          component="Bets"
+        />
       </div>
     ));
   };
@@ -133,14 +161,14 @@ const Bets = ({ state: { state }, match, history }) => {
     if (isButtonLoading) {
       simulateNetworkRequest().then(() => {
         setButtonLoading(false);
-        setTimeout(() => setAdded(false), 900);
+        setTimeout(() => setAdded(false), 500);
       });
     }
   }, [isButtonLoading]);
 
   const handleClick = () => {
     setButtonLoading(true);
-    setTimeout(() => setAdded(true), 750);
+    setTimeout(() => setAdded(true), 400);
   };
 
   return loading ? (
@@ -174,21 +202,17 @@ const Bets = ({ state: { state }, match, history }) => {
             alignItems: 'center'
           }}
         >
-          <Button
+          <PrettyButton
             variant="outline-secondary mr-2"
             style={{
-              width: '40px',
+              width: '35px',
               display: 'flex',
               alignItems: 'center',
               height: '100%'
             }}
-            onClick={() => refreshBets()}
-          >
-            <i
-              style={{ fontSize: '14px', color: 'silver' }}
-              className="fas fa-sync-alt"
-            ></i>
-          </Button>
+            onclick={() => refreshBets()}
+            iconClassName="fas fa-sync-alt"
+          />
           <Button
             variant="outline-primary"
             onClick={() => toggleShow(!show)}
@@ -506,7 +530,9 @@ const Bets = ({ state: { state }, match, history }) => {
       ) : (
         <> </>
       )}
-      {bets.length > 0 ? (
+      {restrictedAccess ? (
+        'Restricted access'
+      ) : bets.length > 0 ? (
         // <BetDisplay
         //   refreshBets={refreshBets}
         //   bets={bets.sort((a, b) => b.id - a.id)}

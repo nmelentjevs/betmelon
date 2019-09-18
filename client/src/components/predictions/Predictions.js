@@ -50,10 +50,10 @@ const Predictions = props => {
   });
 
   useEffect(() => {
-    getData(filter);
+    getData(filter, added);
   }, [filter, filteredPredictions]);
 
-  const getData = async (filterParam = '*') => {
+  const getData = async (filterParam = '*', added) => {
     if (props.match.params.filter && filterParam === '*') {
       filterParam = props.match.params.filter.replace(':', '');
     } else if (filter.length > 0) {
@@ -64,7 +64,7 @@ const Predictions = props => {
 
     setLoading(true);
     await axios
-      .get(`/api/predictions/all/${filterParam}/${added}`)
+      .get(`/api/predictions/all/${filterParam}/${added ? 'added' : 'false'}`)
       .then(res => {
         console.log(res.data);
         pagination.pageCount = Math.ceil(res.data.length / pagination.perPage);

@@ -18,10 +18,12 @@ export class UserProvider extends Component {
   };
 
   setUserFromLocal = username => {
+    const jwttoken = localStorage.getItem('jwttoken');
     axios
-      .post('/api/users/localuser', { username })
+      .post('/api/users/localuser', { username, token: jwttoken })
       .then(res => {
-        this.setState({ isAuthenticated: true, user: res.data.user });
+        const { user } = res.data.user;
+        this.setState({ isAuthenticated: true, user });
       })
       .catch(err => console.log(err));
   };

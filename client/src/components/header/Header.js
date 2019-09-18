@@ -37,7 +37,7 @@ const Header = ({ state: { state, setUserFromLocal, logout } }) => {
 
   return (
     <Navbar expand="lg" className="container-fullwidth bg-dark navbar-dark">
-      <Link className="navbar-brand ml-3" to="/">
+      <Link className="navbar-brand ml-3" to="/" style={{ cursor: 'pointer' }}>
         Betmelon v2
       </Link>{' '}
       <Navbar.Toggle />

@@ -102,7 +102,7 @@ const Charts = ({
                   />
                 </g>
                 <g
-                  transform={`translate(${width > 700 ? 10 : -20}, ${
+                  transform={`translate(${width > 700 ? 20 : -20}, ${
                     width > 700 ? -70 : 0
                   })`}
                 >
@@ -113,8 +113,8 @@ const Charts = ({
                     standalone={false}
                     style={{
                       labels: {
-                        fontSize: width > 700 ? 10 : 14,
-                        padding: 15,
+                        fontSize: width > 700 ? 8 : 14,
+                        padding: 10,
                         fill: 'white'
                       }
                     }}

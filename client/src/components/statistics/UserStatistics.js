@@ -35,7 +35,7 @@ const UserStatistics = ({ state: { state }, match }) => {
   const refreshBets = () => {
     const { username } = match.params;
     axios
-      .get(`/api/bets/loadbets/${username}`)
+      .get(`/api/bets/loadbets/${username}/${state.user.username}/:false`)
       .then(res => {
         console.log(res.data);
         setLoading(false);

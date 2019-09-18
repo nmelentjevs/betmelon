@@ -6,16 +6,45 @@
 
 
     .active {
-      border-bottom: red 2px solid;
+      border: #6f42c1 1px solid;
     }
 
     li {
       margin: 0 .2rem;
       cursor: pointer;
+      padding: 0.2rem 0rem;
+
+      border: 1px solid #007bff;
+
+      &:first-child {
+        border: none;
+      }
+
+      &:last-child {
+        border: none;
+      }
 
       a {
         color: whitesmoke !important;
+        padding: 0.2rem 0.8rem;
+        height: 100%;
+        width: 100%;
       }
+
+      &:hover,
+      :active {
+        color: #6f42c1;
+        cursor: pointer;
+
+
+      }
+
+
+    }
+
+    .next,
+    .previous {
+      display: none;
     }
   }
 

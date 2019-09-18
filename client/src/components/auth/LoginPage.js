@@ -22,11 +22,13 @@ const LoginPage = ({ history }) => {
     axios
       .post('/api/users/login', { password, username })
       .then(res => {
+        console.log(res.data);
         if (res.data.err === 'username') {
           setUsernameError(true);
         } else if (res.data.login) {
           authenticate(res.data.user);
           localStorage.setItem('username', res.data.user.username);
+          localStorage.setItem('jwttoken', res.data.token);
           history.push('/');
         } else if (!res.data.login) {
           setPasswordError(true);

@@ -206,7 +206,7 @@ AddPrediction.propTypes = {
   handleSubmit: PropTypes.func,
   state: PropTypes.object,
   handleOnChange: PropTypes.func,
-  country: PropTypes.array,
+  country: PropTypes.string,
   setCountry: PropTypes.func,
   leagues: PropTypes.array,
   setLeague: PropTypes.func,

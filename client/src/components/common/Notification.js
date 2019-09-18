@@ -5,7 +5,7 @@ import './Notification.scss';
 // Bootstrap
 import Toast from 'react-bootstrap/Toast';
 
-const Notification = ({ text, remove, i }) => {
+const Notification = ({ text, remove, i, component }) => {
   const [show, setShow] = useState(true);
 
   const toggleShow = () => {
@@ -23,7 +23,7 @@ const Notification = ({ text, remove, i }) => {
             style={{ fontSize: '10px', color: 'black' }}
             className="fas fa-circle-notch"
           ></i>
-          <strong className="mr-auto">Bets</strong>
+          <strong className="mr-auto">{component}</strong>
         </span>
         <small>just now</small>
       </Toast.Header>
