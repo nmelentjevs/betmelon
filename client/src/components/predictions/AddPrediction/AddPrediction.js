@@ -128,7 +128,7 @@ const AddPrediction = ({
               <InputGroup.Text id="inputGroupPrepend">$</InputGroup.Text>
             </InputGroup.Prepend>
             <Form.Control
-              type="number"
+              type="float"
               placeholder="6,9"
               aria-describedby="inputGroupPrepend"
               name="odds"

@@ -7,7 +7,7 @@
 
   .row-mtt {
     margin-top: 50px
-       }
+  }
 
   @media only screen and (max-width: 768px) {
     .text-center {
@@ -154,9 +154,13 @@ a {
     width: 100%;
     margin-top: 0px;
 
-    .text-center:last-child{
+    .text-center:last-child {
       margin-top: 0;
     }
+  }
+
+  .bet-card {
+    margin-top: 0 !important;
   }
 
 }
