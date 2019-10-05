@@ -189,7 +189,7 @@ const Predictions = props => {
               filter={filter}
             />
             <div>
-              No predictions available. Add one?{' '}
+              No predictions available :( Add one?{' '}
               <AddPrediction
                 handleSubmit={handleSubmit}
                 leagues={leagues}
