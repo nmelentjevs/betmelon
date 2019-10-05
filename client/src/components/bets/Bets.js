@@ -174,7 +174,7 @@ const Bets = ({ state: { state }, match, history }) => {
   return loading ? (
     <GlobalLoading fullscreen={true} />
   ) : (
-    <div className="bets-section">
+    <div className="bets-section mb-4">
       <div
         className="mt-4 mb-2"
         style={{
